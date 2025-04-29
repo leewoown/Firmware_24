@@ -6022,3 +6022,274 @@ java.lang.Exception: The project description file (.project) for '.org.eclipse.e
 
 !ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 01:33:15.467
 !MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 01:38:01.643
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -180 @ 0x0) The controller has detected a target power loss. The user must turn-on or connect the power supply for the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 01:38:01.739
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -180 @ 0x0)
+The controller has detected a target power loss.
+The user must turn-on or connect the power supply for the target.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 01:38:22.167
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -233 @ 0x0) The JTAG IR and DR scan-paths cannot circulate bits, they may be broken. An attempt to scan the JTAG scan-path has failed. The target's JTAG scan-path appears to be broken with a stuck-at-ones or stuck-at-zero fault. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 01:38:22.212
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -233 @ 0x0)
+The JTAG IR and DR scan-paths cannot circulate bits, they may be broken.
+An attempt to scan the JTAG scan-path has failed.
+The target's JTAG scan-path appears to be broken
+with a stuck-at-ones or stuck-at-zero fault.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 01:39:08.029
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -233 @ 0x0) The JTAG IR and DR scan-paths cannot circulate bits, they may be broken. An attempt to scan the JTAG scan-path has failed. The target's JTAG scan-path appears to be broken with a stuck-at-ones or stuck-at-zero fault. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 01:39:08.078
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -233 @ 0x0)
+The JTAG IR and DR scan-paths cannot circulate bits, they may be broken.
+An attempt to scan the JTAG scan-path has failed.
+The target's JTAG scan-path appears to be broken
+with a stuck-at-ones or stuck-at-zero fault.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 01:39:43.732
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 01:55:11.945
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:05:48.859
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:13:05.590
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:14:26.616
+!MESSAGE DS_ERROR: C28xx: Trouble Reading Memory Block at 0x92d0 on Page 1 of Length 0x2: (Error -183 @ 0x0) The controller has detected a cable break far-from itself. The user must connect the cable/pod to the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:14:26.680
+!MESSAGE DS_ERROR: C28xx: Trouble Halting Target CPU: (Error -2062 @ 0x0) Unable to halt device. Reset the device, and retry the operation. If error persists, confirm configuration, power-cycle the board, and/or try more reliable JTAG settings (e.g. lower TCLK). (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:14:26.743
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:14:26.822
+!MESSAGE DS_ERROR: C28xx: Failed to remove the debug state from the target before disconnecting.  There may still be breakpoint op-codes embedded in program memory.  It is recommended that you reset the emulator before you connect and reload your program before you continue debugging
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:18:11.215
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:18:39.608
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:21:10.739
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:21:38.319
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:23:55.504
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -233 @ 0x0) The JTAG IR and DR scan-paths cannot circulate bits, they may be broken. An attempt to scan the JTAG scan-path has failed. The target's JTAG scan-path appears to be broken with a stuck-at-ones or stuck-at-zero fault. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:23:55.557
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -233 @ 0x0)
+The JTAG IR and DR scan-paths cannot circulate bits, they may be broken.
+An attempt to scan the JTAG scan-path has failed.
+The target's JTAG scan-path appears to be broken
+with a stuck-at-ones or stuck-at-zero fault.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:24:34.167
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:27:28.188
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:28:45.939
+!MESSAGE DS_ERROR: C28xx: Trouble Reading Memory Block at 0x9214 on Page 1 of Length 0x2: (Error -183 @ 0x0) The controller has detected a cable break far-from itself. The user must connect the cable/pod to the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:28:46.005
+!MESSAGE DS_ERROR: C28xx: Trouble Halting Target CPU: (Error -2062 @ 0x0) Unable to halt device. Reset the device, and retry the operation. If error persists, confirm configuration, power-cycle the board, and/or try more reliable JTAG settings (e.g. lower TCLK). (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:28:46.068
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:28:46.191
+!MESSAGE DS_ERROR: C28xx: Failed to remove the debug state from the target before disconnecting.  There may still be breakpoint op-codes embedded in program memory.  It is recommended that you reset the emulator before you connect and reload your program before you continue debugging
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:30:15.587
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -180 @ 0x0) The controller has detected a target power loss. The user must turn-on or connect the power supply for the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:30:15.651
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -180 @ 0x0)
+The controller has detected a target power loss.
+The user must turn-on or connect the power supply for the target.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:30:49.505
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:35:24.483
+!MESSAGE DS_ERROR: C28xx: Trouble Reading Memory Block at 0x92d4 on Page 1 of Length 0x2: (Error -183 @ 0x0) The controller has detected a cable break far-from itself. The user must connect the cable/pod to the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:35:24.547
+!MESSAGE DS_ERROR: C28xx: Trouble Halting Target CPU: (Error -2062 @ 0x0) Unable to halt device. Reset the device, and retry the operation. If error persists, confirm configuration, power-cycle the board, and/or try more reliable JTAG settings (e.g. lower TCLK). (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:35:24.611
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:35:24.745
+!MESSAGE DS_ERROR: C28xx: Failed to remove the debug state from the target before disconnecting.  There may still be breakpoint op-codes embedded in program memory.  It is recommended that you reset the emulator before you connect and reload your program before you continue debugging
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:37:16.046
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -180 @ 0x0) The controller has detected a target power loss. The user must turn-on or connect the power supply for the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:37:16.105
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -180 @ 0x0)
+The controller has detected a target power loss.
+The user must turn-on or connect the power supply for the target.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:37:37.651
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -180 @ 0x0) The controller has detected a target power loss. The user must turn-on or connect the power supply for the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:37:37.706
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -180 @ 0x0)
+The controller has detected a target power loss.
+The user must turn-on or connect the power supply for the target.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:38:14.666
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:38:54.307
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:42:18.840
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:44:36.656
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -233 @ 0x0) The JTAG IR and DR scan-paths cannot circulate bits, they may be broken. An attempt to scan the JTAG scan-path has failed. The target's JTAG scan-path appears to be broken with a stuck-at-ones or stuck-at-zero fault. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:44:36.729
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -233 @ 0x0)
+The JTAG IR and DR scan-paths cannot circulate bits, they may be broken.
+An attempt to scan the JTAG scan-path has failed.
+The target's JTAG scan-path appears to be broken
+with a stuck-at-ones or stuck-at-zero fault.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:45:08.493
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:48:18.909
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:50:15.457
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:53:07.607
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:55:33.489
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:56:17.601
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
