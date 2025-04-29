@@ -7,7 +7,7 @@
 	<deviceEndianness value="little"/>
 	<codegenToolVersion value="16.9.4.LTS"/>
 	<isElfFormat value="false"/>
-	<connection value="common/targetdb/connections/TIXDS2XXUSB_Connection.xml"/>
+	<connection value="common/targetdb/connections/SD560V2USB_Connection.xml"/>
 	<linkerCommandFile value="28035_RAM_lnk.cmd"/>
 	<rts value="libc.a"/>
 	<createSlaveProjects value=""/>
