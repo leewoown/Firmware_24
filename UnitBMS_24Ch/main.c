@@ -400,7 +400,7 @@ interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
                 if(SysRegs.SystemStateARegs.bit.CellVoltCAN==1)
                 {
                     CANTXRegs.CellNumStart=16;
-                    CANTXRegs.UnitBMSID = (0x504|SysRegs.BMSIDRegs.all);
+                   // CANTXRegs.UnitBMSID = (0x504|SysRegs.BMSIDRegs.all);
                     CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.BatteryVoltageCell[CANTXRegs.CellNumStart],CANTXRegs.BatteryVoltageCell[CANTXRegs.CellNumStart+1],
                                                  CANTXRegs.BatteryVoltageCell[CANTXRegs.CellNumStart+2],CANTXRegs.BatteryVoltageCell[CANTXRegs.CellNumStart+3]);
                 }
