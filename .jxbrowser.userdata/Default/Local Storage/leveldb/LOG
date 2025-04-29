@@ -1,0 +1,12 @@
+2023/07/22-11:32:09.524 4af0 Reusing MANIFEST D:\24_UnitBMS_20Ch\.jxbrowser.userdata\Default\Local Storage\leveldb/MANIFEST-000001
+2023/07/22-11:32:09.525 4af0 Recovering log #3
+2023/07/22-11:32:09.525 4af0 Reusing old log D:\24_UnitBMS_20Ch\.jxbrowser.userdata\Default\Local Storage\leveldb/000003.log 
+2023/07/22-20:39:53.264 aa88 Level-0 table #5: started
+2023/07/22-20:39:53.267 aa88 Level-0 table #5: 22395 bytes OK
+2023/07/22-20:39:53.268 aa88 Delete type=0 #3
+2023/07/22-20:41:53.292 aa88 Level-0 table #7: started
+2023/07/22-20:41:53.294 aa88 Level-0 table #7: 16947 bytes OK
+2023/07/22-20:41:53.297 aa88 Delete type=0 #4
+2023/07/22-20:43:53.292 aa88 Level-0 table #9: started
+2023/07/22-20:43:53.308 aa88 Level-0 table #9: 18543 bytes OK
+2023/07/22-20:43:53.309 aa88 Delete type=0 #6

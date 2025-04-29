@@ -1,0 +1,1245 @@
+#include "DSP28x_Project.h"     // Device Headerfile and Examples Include File
+
+
+#pragma CODE_SECTION(cpu_timer0_isr,"ramfuncs");
+
+//************************************************************************************//
+//                                System variables                                    //
+//************************************************************************************//
+extern Uint16 RamfuncsLoadStart;
+extern Uint16 RamfuncsLoadEnd;
+extern Uint16 RamfuncsRunStart;
+
+SystemReg           SysRegs;
+CANRXReg            CANRXRegs;
+CANTXReg            CANTXRegs;
+ADCReg              ADCRegs;
+
+SlaveReg            Slave1Regs;
+SlaveReg            Slave2Regs;
+SlaveReg            Slave3Regs;
+
+
+struct  ECAN_REGS   ECanaShadow;
+//************************************************************************************//
+//                                Test variables                                      //
+//************************************************************************************//
+
+unsigned char   UratRxBuf[20];
+unsigned int    rx_cnt = 0;
+unsigned int    BalancePeriod = 0;
+unsigned int    CellNumber    = 0;
+unsigned int    TestMode      = 0;
+unsigned int    FanMode;  // Test 후 삭제
+unsigned int    celltest=0;
+int fanTest=250;
+char *msg;
+
+float32 CurrentTest = 0.0;
+float32 CellTempFAN = 0.0;
+float32 gainTest    = 200.0;
+float32 TEMPTest    = 0.0 ;
+Uint16 Cantestrx =0;
+Uint16 CANARX_300=0;
+Uint16  TempNum = 0;
+
+unsigned long index;
+unsigned long testindex=0;
+unsigned long index2;
+unsigned long testindex2=0;
+unsigned long CANindex=240;
+
+unsigned int cancnt=200;
+unsigned int slave1voltagoffset =0;
+unsigned int slave2voltagoffset =0;
+
+void main(void)
+{
+// Step 1. Initialize System Control
+// PLL, WatchDog, enable Peripheral Clocks
+// This example function is found in the DSP2803x_SysCtrl.c file.
+   	InitSysCtrl();
+   
+// Step 2. Initalize GPIO: 
+// This example function is found in the DSP2803x_Gpio.c file and
+// illustrates how to set the GPIO to it's default state.
+// For this example use the following configuration:
+// Step 3. Clear all interrupts and initialize PIE vector table:
+   	DINT;
+// Initialize PIE control registers to their default state.
+// The default state is all PIE interrupts disabled and flags
+// are cleared.  
+// This function is found in the DSP2803x_PieCtrl.c file.
+   	InitPieCtrl();
+// Disable CPU interrupts and clear all CPU interrupt flags:
+   	IER = 0x0000;
+   	IFR = 0x0000;
+
+// Initialize the PIE vector table with pointers to the shell Interrupt 
+// Service Routines (ISR).  
+// This will populate the entire table, even if the interrupt
+// is not used in this example.  This is useful for debug purposes.
+// The shell ISR routines are found in DSP2803x_DefaultIsr.c.
+// This function is found in DSP2803x_PieVect.c.
+// Step 4. USEGE Initialize all
+// Step 5. enable interrupts:
+	InitPieVectTable();
+
+   	EALLOW;  // This is needed to write to EALLOW protected registers
+   	PieVectTable.TINT0      = &cpu_timer0_isr;
+	PieVectTable.ECAN0INTA 	= &ISR_CANRXINTA;
+//	PieVectTable.SCIRXINTA 	= &ISR_SCIRXINTA;
+  	EDIS;    // This is needed to disable write to EALLOW protected registers
+
+	WG_InitGpio();
+	WG_InitECana();
+   	WG_InitSPI();
+   	WG_InitSci();
+
+	MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
+
+	InitFlash();
+
+	ConfigCpuTimer(&CpuTimer0, 60.0, 1000.0);
+
+    CpuTimer0Regs.PRD.all = 60000 * 5;// 60000 is 1msec
+    CpuTimer0Regs.TCR.all = 0x4001;
+
+	InitAdc();
+ 	SystemRegsInit(&SysRegs);
+
+	IER |= M_INT1;
+	IER |= M_INT9;	// CAN RX,SCIA_RX 
+   	PieCtrlRegs.PIEIER1.bit.INTx7 = 1;		// Enable TINT0 in the PIE: Group 1 interrupt 7
+	PieCtrlRegs.PIEIER9.bit.INTx5 = 1;		// Enable ECAN-A interrupt of PIE group 9
+//	PieCtrlRegs.PIEIER9.bit.INTx1 = 1;		// SCIA RX interrupt of PIE group
+	EINT;   // Enable Global interrupt INTM
+   	ERTM;   // Enable Global realtime interrupt DBGM
+
+   	while(1)
+	{
+   	   if(SysRegs.SystemStateARegs.bit.INITOK == 1)
+   	   {
+   	       LEDSTATE_ON
+   	       SysRegs.TempNumber++;
+           if(SysRegs.TempNumber>7)
+           {
+              SysRegs.TempNumber=0;
+           }
+           TEMP1_CAL(&Slave1Regs,SysRegs.TempNumber);
+           TEMP2_CAL(&Slave2Regs,SysRegs.TempNumber);
+           TEMP3_CAL(&Slave3Regs,SysRegs.TempNumber);
+
+   	       memcpy(&SysRegs.CellVoltage[0],&Slave2Regs.CellVoltage[0],Slave2CellVoltageNum);
+   	       memcpy(&SysRegs.CellVoltage[Slave2CellVoltageNum],&Slave1Regs.CellVoltage[0],Slave1CellVoltageNum);
+   	       SysRegs.CellVoltage[C_CellVoltageNum]=0; //22
+   	       SysRegs.CellVoltage[C_CellVoltageNum+1]=0; //23
+
+   	       memcpy(&SysRegs.CellTemperture[0],&Slave1Regs.CellTemp[0],8);
+           memcpy(&SysRegs.CellTemperture[8],&Slave2Regs.CellTemp[0],8);
+           memcpy(&SysRegs.CellTemperture[16],&Slave3Regs.CellTemp[0],8);
+           SysRegs.CellTemperture[7]=Slave1Regs.CellTemp[7];
+           SysRegs.CellTemperture[C_CellTemperatureNum] = 0; //22
+           SysRegs.CellTemperture[C_CellTemperatureNum+1] = 0; //23
+
+           CalVoltage(&SysRegs);
+           CalTemp(&SysRegs);
+           memcpy(&CANTXRegs.BatteryVoltageCell[0],&SysRegs.CellVoltage[0],C_CellVoltageNum);
+
+           CANTXRegs.BatteryVoltageCell[C_CellVoltageNum]=0;   //22
+           CANTXRegs.BatteryVoltageCell[C_CellVoltageNum+1]=0; //23
+
+           memcpy(&CANTXRegs.BatteryTempCell[0],&SysRegs.CellTemperture[0],C_CellTemperatureNum);
+           CANTXRegs.BatteryTempCell[C_CellTemperatureNum] = 0; //22
+           CANTXRegs.BatteryTempCell[C_CellTemperatureNum+1] = 0; //23
+           LEDSTATE_OFF
+   	   }
+ 	}
+} //EOF void main()
+
+interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
+{
+//----------Timer값 증가----------//
+    SysRegs.MainIsr++;
+    SysRegs.Timer50msec++;
+    SysRegs.Timer200msec++;
+    SysRegs.Timer500msec++;
+    SysRegs.Timer1000msec++;
+    SysRegs.Timer2000msec++;
+
+    if(CANRXRegs.Cell_Data_Request == 0x00) // ID : 0x300 byte 5 , byte 6 Cell Data 요청
+    {
+       // SysRegs.Timer2000msec=0;
+    }
+    SystemInit(&SysRegs);
+
+    if(SysRegs.Timer50msec>=50)            { SysRegs.Timer50msec   = 0;          }
+    if(SysRegs.Timer100msec>=100)          { SysRegs.Timer100msec  = 0;          }
+    if(SysRegs.Timer200msec>=200)          { SysRegs.Timer200msec  = 0;          }
+    if(SysRegs.Timer500msec>=500)          { SysRegs.Timer500msec  = 0;          }
+    if(SysRegs.Timer1000msec>=1000)        { SysRegs.Timer1000msec = 0;          }
+    if(SysRegs.Timer2000msec>=2000)        { SysRegs.Timer2000msec = 0;          }
+
+    if(SysRegs.SystemStateARegs.bit.INITOK == 0)
+    {
+        SysRegs.initCount++;
+        FanMode = 0;
+//----------Temp 초기화----------//
+        TEMP1DO00L;
+        TEMP1DO01L;
+        TEMP1DO02L;
+
+        TEMP2DO00L;
+        TEMP2DO01L;
+        TEMP2DO02L;
+
+        TEMP3DO00L;
+        TEMP3DO01L;
+        TEMP3DO02L;
+        SysRegs.TempNumber=0;
+//----------UnitBMS ID 초기화----------//
+        SysRegs.BMSIDRegs.all = 0x0000;
+
+//----------DIO 초기화----------//
+        SysRegs.DigitalOutPutReg.all = 0x0000;
+        SysRegs.DigitalInputReg.all  = 0x0000;
+
+//----------TIMER 초기화----------//
+        SysRegs.Timer100msec  = 0;
+        SysRegs.Timer200msec  = 0;
+        SysRegs.Timer500msec  = 0;
+        SysRegs.Timer1000msec = 0;
+        SysRegs.Timer2000msec = 0;
+
+//----------Balance 초기화----------//
+        Slave1Regs.Balance.all = 0x0000;
+        Slave2Regs.Balance.all = 0x0000;
+
+//----------State 초기화----------//
+        SysRegs.SystemStateARegs.all = 0x0000;
+        SysRegs.CellMaxVoltage        = 0;
+        SysRegs.CellMinVoltage        = 0;
+        SysRegs.Number                = 0;
+        SysRegs.CellMaxVoltageNum     = 0;
+        SysRegs.CellMinVoltageNum     = 0;
+        SysRegs.ModuleVoltage         = 0;
+        SysRegs.CellMaxTemperature    = 0;
+        SysRegs.CellMaxTemperatureNum = 0;
+        SysRegs.CellMinTemperature    = 0;
+        SysRegs.CellMinTemperatureNum = 0;
+        SysRegs.CellSumVoltage        = 0;
+        SysRegs.BalanceState          = 0;
+        SysRegs.BalanceMode           = 0;
+        SysRegs.SystemStateARegs.bit.BalanceStartStop=0;
+
+        SysRegs.HeartBeat      = 0xff;
+        SysRegs.SystemStateARegs.bit.VoltageoffsetFlag=0;
+//
+        SysRegs.CellVoltagePositionbuf1=0;
+        SysRegs.CellVoltagePositionbuf2=0;
+        SysRegs.CellOffsetVotageDiv =0;
+//----------CANRX 초기화----------//
+        CANRXRegs.RackCellMaxVoltage = 0;
+        CANRXRegs.RackCellMinVoltage = 0;
+        CANRXRegs.RackCellMaxTemp    = 0;
+
+
+        CANRXRegs.Heartbeat          = 0x00;
+        CANRXRegs.Cell_Data_Request  = 0x00;
+
+        CANRXRegs.RxCount31=0;
+        CANRXRegs.RxCount31 =0;
+
+//----------CANTX 초기화----------//
+        CANTXRegs.Heartbeat         = 0;
+        CANTXRegs.ErrorCount        = 0;
+
+
+//----------초기 Cell Voltage & Temp 설정----------//
+        memset(&Slave1Regs.CellVoltage[0],3500,12);
+        memset(&Slave2Regs.CellVoltage[0],3500,12);
+
+        memset(&Slave1Regs.CellTemp[0],250,8);
+        memset(&Slave2Regs.CellTemp[0],250,8);
+        memset(&Slave3Regs.CellTemp[0],250,8);
+
+        memset(&SysRegs.CellVoltage[0],3500,18);
+        memset(&SysRegs.CellTemperture[0],250,18);
+
+//----------Slave 초기화----------//
+        Slave1Regs.ErrorCount = 0;
+        Slave2Regs.ErrorCount = 0;
+
+        Slave1Regs.ID=Slave1_ID;
+        Slave2Regs.ID=Slave2_ID;
+        CANTXRegs.BalanceSate.all=0;
+
+        SlaveBMSIint(&Slave1Regs);
+        SlaveBMSIint(&Slave2Regs);
+
+//----------BMS ID 확인----------//
+
+        BMS_ID_Check(&SysRegs);
+// 23-02-17 leewoowon : CAN 통신 변수 초기화
+        CANRXRegs.RxCount                  = 0;
+        CANRXRegs.BMSID                    = 0;
+        CANRXRegs.Cell_Data_Request        = 0;
+        SysRegs.BalanceMode                = 0;
+        SysRegs.HeartBeat                  = 0;
+        CANRXRegs.RackCellMinVoltage       = 0;
+        CANRXRegs.RackCellMaxTemp          = 0;
+    }
+
+    if(SysRegs.SystemStateARegs.bit.INITOK==1)
+    {
+        // 230217, leewoowon : BMS_ID_Check 추가함
+        BMS_ID_Check(&SysRegs);
+        if(SysRegs.BalanceMode == 0x55) // ID : 0x300
+        {
+           SysRegs.SystemStateARegs.bit.BalanceState=1;
+
+           if (SysRegs.CellMinVoltage <= 3000)
+           {
+               SysRegs.SystemStateARegs.bit.BalanceState=0;
+           }
+        }
+        if(SysRegs.BalanceMode == 0x00)
+        {
+           SysRegs.SystemStateARegs.bit.BalanceState=0;
+        }
+        if(TestMode==0) // Balance Testmode
+        {
+            if(SysRegs.SystemStateARegs.bit.BalanceState==1)
+            {
+                SysRegs.TimerBalance++;
+                if(SysRegs.TimerBalance>200)
+                {
+                    SysRegs.TimerBalance=0;
+                    SysRegs.SystemStateARegs.bit.BalanceStartStop =! SysRegs.SystemStateARegs.bit.BalanceStartStop;
+                }
+                if(SysRegs.SystemStateARegs.bit.BalanceStartStop==1)
+                {
+                    SysRegs.Timer500msec=0;
+
+                    BalanceCtrl(&Slave1Regs,&SysRegs);
+                    BalanceCtrl(&Slave2Regs,&SysRegs);
+                    SlaveBmsBalance(&Slave1Regs);
+                    SlaveBmsBalance(&Slave2Regs);
+
+                }
+                else
+                {
+                    Slave1Regs.Balance.all=0x0000;
+                    Slave2Regs.Balance.all=0x0000;
+                    SlaveBmsBalance(&Slave1Regs);
+                    SlaveBmsBalance(&Slave2Regs);
+                }
+
+            }
+
+            if(SysRegs.SystemStateARegs.bit.BalanceState==0)
+            {
+                     Slave1Regs.Balance.all=0x0000;
+                     Slave2Regs.Balance.all=0x0000;
+                     SlaveBmsBalance(&Slave1Regs);
+                     SlaveBmsBalance(&Slave2Regs);
+                     SysRegs.SystemStateARegs.bit.BalanceStartStop =0;
+            }
+              CANTXRegs.BalanceSate.all = Slave1Regs.Balance.all;
+              CANTXRegs.BalanceSate.all = CANTXRegs.BalanceSate.all<<10;
+              CANTXRegs.BalanceSate.all = CANTXRegs.BalanceSate.all | Slave2Regs.Balance.all;
+        }
+        switch(SysRegs.Timer50msec)
+        {
+            case 1:
+                   SysRegs.DigitalOutPutReg.bit.LEDCAN =! SysRegs.DigitalOutPutReg.bit.LEDCAN;
+            break;
+            case 2:
+                     CANTXRegs.CellVoltageNumCnt++; // 0.05
+                     if(CANTXRegs.CellVoltageNumCnt>7){CANTXRegs.CellVoltageNumCnt=0;}
+                     CANTXRegs.UnitBMSID = 0x401 | (SysRegs.BMSIDRegs.all << 4);
+                     CANTXRegs.CellVotlageMaxNumber = C_CellVoltageNum;
+                     CANTXRegs.CellVotlNum = CANTXRegs.CellVoltageNumCnt * 3; //((0)->0,(1)->3,(2)->6,(3)->9,(4)->12,(5)->15,(6)->18 (7)->21 //400msec 마다
+                     CANTXRegs.NumberShift = CANTXRegs.CellVotlNum << 8;
+                     CANTXRegs.CellNumStart = (CANTXRegs.NumberShift| CANTXRegs.CellVotlageMaxNumber);
+                     CANATX(CANTXRegs.UnitBMSID, 8, CANTXRegs.CellNumStart, CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlNum],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlNum + 1],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlNum + 2]);
+            break;
+            case 5:
+                    CANTXRegs.CellTemNumCnt++; // 0.05
+                    if(CANTXRegs.CellTemNumCnt>7){CANTXRegs.CellTemNumCnt=0;}
+                    CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                    CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                    CANTXRegs.CellTemNum               = CANTXRegs.CellTemNumCnt*3;//((01)->0,(1)->3,(2)->6,(3)->9,(4)->12,(5)->15,(6)->18 (7)->21 //400msec 마다
+                    CANTXRegs.NumberTempShift          = CANTXRegs.CellTemNum << 8;
+                    CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                    CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,CANTXRegs.BatteryTempCell[CANTXRegs.CellTemNum],
+                                                                            CANTXRegs.BatteryTempCell[CANTXRegs.CellTemNum+1],
+                                                                            CANTXRegs.BatteryTempCell[CANTXRegs.CellTemNum+2]);
+            break;
+            case 3:
+                    CANTXRegs.UnitBMSID       = 0x403 | (SysRegs.BMSIDRegs.all <<4);
+                    CANTXRegs.ErrorCount      = (Slave1Regs.ErrorCount <<8) | Slave2Regs.ErrorCount;
+                    SysRegs.HeartBeat++;
+                    if(SysRegs.HeartBeat>=200)
+                    {
+                       SysRegs.HeartBeat=0;
+                    }
+                    CANTXRegs.CAN_STATUS      = (SysRegs.DigitalOutPutReg.all <<8) | SysRegs.HeartBeat;
+                    CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.BalanceSate.Word.LOW_WORD,CANTXRegs.BalanceSate.Word.HI_WORD,CANTXRegs.ErrorCount,CANTXRegs.CAN_STATUS);
+            break;
+            case 4:
+                    CANTXRegs.UnitBMSID = 0x404 | (SysRegs.BMSIDRegs.all <<4);
+                    CANATX(CANTXRegs.UnitBMSID,8,SysRegs.CellAvgVoltage,SysRegs.CellMaxVoltage,SysRegs.CellMinVoltage,SysRegs.CellDivVoltage);
+                //   CANATX(CANTXRegs.UnitBMSID,8,SysRegs.BMSIDRegs.all,SysRegs.CellMaxVoltage,SysRegs.CellMinVoltage,SysRegs.ModuleVoltage);
+            break;
+            case 5:
+                    CANTXRegs.UnitBMSID = 0x405 | (SysRegs.BMSIDRegs.all <<4);
+                    CANATX(CANTXRegs.UnitBMSID,8,SysRegs.CellAvgTemperature,SysRegs.CellMaxTemperature,SysRegs.CellMinTemperature,SysRegs.CellDivTemperature);
+                 //  CANATX(CANTXRegs.UnitBMSID,8,SysRegs.BMSIDRegs.all,SysRegs.CellMaxTemperature,SysRegs.CellMinTemperature,0);
+            break;
+            case 6:
+                    CANTXRegs.UnitBMSID = 0x406 | (SysRegs.BMSIDRegs.all <<4);
+                    SysRegs.CellVoltagePosition     = (SysRegs.CellMinVoltageNum<<8)|SysRegs.CellMaxVoltageNum;
+                    SysRegs.CellTempPosition        = (SysRegs.CellMinTemperatureNum<<8)|SysRegs.CellMaxTemperatureNum;
+                    CANATX(CANTXRegs.UnitBMSID,8,SysRegs.CellVoltagePosition,SysRegs.CellTempPosition,SysRegs.ModuleVoltage,SysRegs.ModuleTemperature);
+            break;
+
+            case 40:
+
+
+            break;
+
+            default :
+            break;
+/*
+            case 13:
+                   CANTXRegs.UnitBMSID             = 0x407 | (SysRegs.BMSIDRegs.all <<4);
+                   CANATX(CANTXRegs.UnitBMSID,8,SysRegs.BMSIDRegs.all,SysRegs.CellMaxTemperatureNum,SysRegs.CellMinTemperatureNum,0);
+            break;
+*/
+        }
+
+        switch(SysRegs.Timer200msec) // 100
+        {
+            case 1:
+            break;
+            case 2:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave1Regs.Error = LTC6804_write_cmd(Slave1Regs.ID,LTC6804_CMD_ADCV | (1 << 8)|(0 << 4)|(0 << 0),0, 0);
+                        if(Slave1Regs.Error==1)
+                        {
+                            Slave1Regs.ErrorCount=0;
+                        }
+                        else
+                        {
+                            Slave1Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 4:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave1Regs.Error  = LTC6804_read_cmd(Slave1Regs.ID,LTC6804_CMD_RDCVA, Slave1Regs.ADCX, 6);
+                        if(Slave1Regs.Error==1)
+                        {
+                            Slave1Regs.ErrorCount=0;
+                            Slave1Regs.CellVoltageBuf[0] = ((Slave1Regs.ADCX[1] << 8) & 0xff00) | (Slave1Regs.ADCX[0] & 0x00ff);
+                            Slave1Regs.CellVoltageBuf[1] = ((Slave1Regs.ADCX[3] << 8) & 0xff00) | (Slave1Regs.ADCX[2] & 0x00ff);
+                            Slave1Regs.CellVoltageBuf[2] = ((Slave1Regs.ADCX[5] << 8) & 0xff00) | (Slave1Regs.ADCX[4] & 0x00ff);
+
+                            Slave1Regs.CellVoltage[0] = (Slave1Regs.CellVoltageBuf[0])*0.1;
+                            Slave1Regs.CellVoltage[1] = (Slave1Regs.CellVoltageBuf[1])*0.1;
+                            Slave1Regs.CellVoltage[2] = (Slave1Regs.CellVoltageBuf[2])*0.1;
+                        }
+                        else
+                        {
+                            Slave1Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 6:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave1Regs.Error = LTC6804_read_cmd(Slave1Regs.ID,LTC6804_CMD_RDCVB, Slave1Regs.ADCX, 6);
+                        if(Slave1Regs.Error==1)
+                        {
+                            Slave1Regs.ErrorCount=0;
+                            Slave1Regs.CellVoltageBuf[3] = ((Slave1Regs.ADCX[1] << 8 & 0xff00)  | (Slave1Regs.ADCX[0]) & 0x00ff);
+                            Slave1Regs.CellVoltageBuf[4] = ((Slave1Regs.ADCX[3] << 8 & 0xff00)  | (Slave1Regs.ADCX[2]) & 0x00ff);
+                            Slave1Regs.CellVoltageBuf[5] = ((Slave1Regs.ADCX[5] << 8 & 0xff00)  | (Slave1Regs.ADCX[4]) & 0x00ff);
+
+                            Slave1Regs.CellVoltage[3] = (Slave1Regs.CellVoltageBuf[3])*0.1;
+                            Slave1Regs.CellVoltage[4] = (Slave1Regs.CellVoltageBuf[4])*0.1;
+                            Slave1Regs.CellVoltage[5] = (Slave1Regs.CellVoltageBuf[5])*0.1;
+                        }
+                        else
+                        {
+                            Slave1Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 8:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave1Regs.Error = LTC6804_read_cmd(Slave1Regs.ID,LTC6804_CMD_RDCVC, Slave1Regs.ADCX, 6);
+                        if(Slave1Regs.Error==1)
+                        {
+                            Slave1Regs.ErrorCount=0;
+                            Slave1Regs.CellVoltageBuf[6] = ((Slave1Regs.ADCX[1] << 8 & 0xff00)  | (Slave1Regs.ADCX[0]) & 0x00ff);
+                            Slave1Regs.CellVoltageBuf[7] = ((Slave1Regs.ADCX[3] << 8 & 0xff00)  | (Slave1Regs.ADCX[2]) & 0x00ff);
+                            Slave1Regs.CellVoltageBuf[8] = ((Slave1Regs.ADCX[5] << 8 & 0xff00)  | (Slave1Regs.ADCX[4]) & 0x00ff);
+
+                            Slave1Regs.CellVoltage[6] = (Slave1Regs.CellVoltageBuf[6])*0.1;
+                            Slave1Regs.CellVoltage[7] = (Slave1Regs.CellVoltageBuf[7])*0.1;
+                            Slave1Regs.CellVoltage[8] = (Slave1Regs.CellVoltageBuf[8])*0.1;
+                        }
+                        else
+                        {
+                            Slave1Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 10:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave1Regs.Error = LTC6804_read_cmd(Slave1Regs.ID,LTC6804_CMD_RDCVD, Slave1Regs.ADCX, 6);
+                        if(Slave1Regs.Error==1)
+                        {
+                            Slave1Regs.ErrorCount=0;
+                            Slave1Regs.CellVoltageBuf[9] = ((Slave1Regs.ADCX[1] << 8 & 0xff00)  | (Slave1Regs.ADCX[0]) & 0x00ff);
+                            Slave1Regs.CellVoltageBuf[10] = ((Slave1Regs.ADCX[3] << 8 & 0xff00)  | (Slave1Regs.ADCX[2]) & 0x00ff);
+                            Slave1Regs.CellVoltageBuf[11] = ((Slave1Regs.ADCX[5] << 8 & 0xff00)  | (Slave1Regs.ADCX[4]) & 0x00ff);
+
+                            // 소수정 3자리 변환
+                            Slave1Regs.CellVoltage[9]  = (Slave1Regs.CellVoltageBuf[9])*0.1;
+                            Slave1Regs.CellVoltage[10] = (Slave1Regs.CellVoltageBuf[10])*0.1;
+                            Slave1Regs.CellVoltage[11] = (Slave1Regs.CellVoltageBuf[11])*0.1;
+                        }
+                        else
+                        {
+                            Slave1Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 12:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave2Regs.Error = LTC6804_write_cmd(Slave2Regs.ID,LTC6804_CMD_ADCV | (1 << 8)|(0 << 4)|(0 << 0),0, 0);
+                        if(Slave2Regs.Error==1)
+                        {
+                            Slave2Regs.ErrorCount=0;
+                        }
+                        else
+                        {
+                            Slave2Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 14:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave2Regs.Error  = LTC6804_read_cmd(Slave2Regs.ID,LTC6804_CMD_RDCVA, Slave2Regs.ADCX, 6);
+                        if(Slave2Regs.Error==1)
+                        {
+                            Slave2Regs.ErrorCount=0;
+                            Slave2Regs.CellVoltageBuf[0] = ((Slave2Regs.ADCX[1] << 8) & 0xff00) | (Slave2Regs.ADCX[0] & 0x00ff);
+                            Slave2Regs.CellVoltageBuf[1] = ((Slave2Regs.ADCX[3] << 8) & 0xff00) | (Slave2Regs.ADCX[2] & 0x00ff);
+                            Slave2Regs.CellVoltageBuf[2] = ((Slave2Regs.ADCX[5] << 8) & 0xff00) | (Slave2Regs.ADCX[4] & 0x00ff);
+
+                            // 소수정 3자리 변환
+                            Slave2Regs.CellVoltage[0] = (Slave2Regs.CellVoltageBuf[0])*0.1;
+                            Slave2Regs.CellVoltage[1] = (Slave2Regs.CellVoltageBuf[1])*0.1;
+                            Slave2Regs.CellVoltage[2] = (Slave2Regs.CellVoltageBuf[2])*0.1;
+                        }
+                        else
+                        {
+                            Slave2Regs.ErrorCount++;
+                        }
+                    }
+
+            break;
+            case 16:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave2Regs.Error = LTC6804_read_cmd(Slave2Regs.ID,LTC6804_CMD_RDCVB, Slave2Regs.ADCX, 6);
+                        if(Slave2Regs.Error==1)
+                        {
+                            Slave2Regs.ErrorCount=0;
+                            Slave2Regs.CellVoltageBuf[3] = ((Slave2Regs.ADCX[1] << 8 & 0xff00)  | (Slave2Regs.ADCX[0]) & 0x00ff);
+                            Slave2Regs.CellVoltageBuf[4] = ((Slave2Regs.ADCX[3] << 8 & 0xff00)  | (Slave2Regs.ADCX[2]) & 0x00ff);
+                            Slave2Regs.CellVoltageBuf[5] = ((Slave2Regs.ADCX[5] << 8 & 0xff00)  | (Slave2Regs.ADCX[4]) & 0x00ff);
+
+                            Slave2Regs.CellVoltage[3] = (Slave2Regs.CellVoltageBuf[3])*0.1;
+                            Slave2Regs.CellVoltage[4] = (Slave2Regs.CellVoltageBuf[4])*0.1;
+                            Slave2Regs.CellVoltage[5] = (Slave2Regs.CellVoltageBuf[5])*0.1;
+                        }
+                        else
+                        {
+                            Slave2Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 18:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave2Regs.Error = LTC6804_read_cmd(Slave2Regs.ID,LTC6804_CMD_RDCVC, Slave2Regs.ADCX, 6);
+                        if(Slave2Regs.Error==1)
+                        {
+                            Slave2Regs.ErrorCount=0;
+                            Slave2Regs.CellVoltageBuf[6] = ((Slave2Regs.ADCX[1] << 8 & 0xff00)  | (Slave2Regs.ADCX[0]) & 0x00ff);
+                            Slave2Regs.CellVoltageBuf[7] = ((Slave2Regs.ADCX[3] << 8 & 0xff00)  | (Slave2Regs.ADCX[2]) & 0x00ff);
+                            Slave2Regs.CellVoltageBuf[8] = ((Slave2Regs.ADCX[5] << 8 & 0xff00)  | (Slave2Regs.ADCX[4]) & 0x00ff);
+
+                            // 소수정 3자리 변환
+                            Slave2Regs.CellVoltage[6] = (Slave2Regs.CellVoltageBuf[6])*0.1;
+                            Slave2Regs.CellVoltage[7] = (Slave2Regs.CellVoltageBuf[7])*0.1;
+                            Slave2Regs.CellVoltage[8] = (Slave2Regs.CellVoltageBuf[8])*0.1;
+                        }
+                        else
+                        {
+                            Slave2Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 20:
+                    if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                    {
+                        Slave2Regs.Error = LTC6804_read_cmd(Slave2Regs.ID,LTC6804_CMD_RDCVD, Slave2Regs.ADCX, 6);
+                        if(Slave2Regs.Error==1)
+                        {
+                            Slave2Regs.ErrorCount=0;
+                            Slave2Regs.CellVoltageBuf[9] = ((Slave2Regs.ADCX[1] << 8 & 0xff00)  | (Slave2Regs.ADCX[0]) & 0x00ff);
+                            Slave2Regs.CellVoltageBuf[10] = ((Slave2Regs.ADCX[3] << 8 & 0xff00)  | (Slave2Regs.ADCX[2]) & 0x00ff);
+                            Slave2Regs.CellVoltageBuf[11] = ((Slave2Regs.ADCX[5] << 8 & 0xff00)  | (Slave2Regs.ADCX[4]) & 0x00ff);
+
+                            //소수정 3자리 변환
+                            Slave2Regs.CellVoltage[9]  = (Slave2Regs.CellVoltageBuf[9])*0.1;
+                            Slave2Regs.CellVoltage[10] = (Slave2Regs.CellVoltageBuf[10])*0.1;
+                            Slave2Regs.CellVoltage[11] = (Slave2Regs.CellVoltageBuf[11])*0.1;
+                        }
+                        else
+                        {
+                            Slave2Regs.ErrorCount++;
+                        }
+                    }
+            break;
+            case 22:  // LTC6804 to SystemRegs
+                   // if(SysRegs.SystemStateARegs.bit.BalanceStartStop==0)
+                   // {
+                   //       memcpy(&SysRegs.CellVoltage[0],&Slave1Regs.CellVoltage[0],9);
+                   //      memcpy(&SysRegs.CellVoltage[9],&Slave2Regs.CellVoltage[0],9);
+                   // }
+                    SysRegs.CellVoltagePositionbuf1=Slave1Regs.CellVoltageBuf[0]*0.1;
+                    SysRegs.CellVoltagePositionbuf2=Slave2Regs.CellVoltageBuf[0]*0.1;
+                    if(SysRegs.SystemStateARegs.bit.VoltageoffsetFlag==0)
+                    {
+                        if(SysRegs.CellVoltagePositionbuf1==SysRegs.CellVoltagePositionbuf2)
+                        {
+                            slave1voltagoffset=0;
+                            slave2voltagoffset=0;
+                        }
+                        if(SysRegs.CellVoltagePositionbuf1>=SysRegs.CellVoltagePositionbuf2)
+                        {
+                            SysRegs.CellOffsetVotageDiv = SysRegs.CellVoltagePositionbuf1 - SysRegs.CellVoltagePositionbuf2;
+                            if(SysRegs.CellOffsetVotageDiv>=100)
+                            {
+                                slave1voltagoffset=0;
+                                slave2voltagoffset=0;
+                            }
+                            if((SysRegs.CellOffsetVotageDiv<100)&& (SysRegs.CellOffsetVotageDiv>2))
+                            {
+                               slave2voltagoffset=SysRegs.CellOffsetVotageDiv;
+                            }
+                            if(SysRegs.CellOffsetVotageDiv<=2)
+                            {
+                                slave1voltagoffset=0;
+                                slave2voltagoffset=0;
+                            }
+
+                        }
+                        if(SysRegs.CellVoltagePositionbuf1 < SysRegs.CellVoltagePositionbuf2)
+                        {
+                            SysRegs.CellOffsetVotageDiv = SysRegs.CellVoltagePositionbuf2 - SysRegs.CellVoltagePositionbuf1;
+
+                            if(SysRegs.CellOffsetVotageDiv>=100)
+                            {
+                                slave1voltagoffset=0;
+                                slave2voltagoffset=0;
+                            }
+                            if((SysRegs.CellOffsetVotageDiv<100)&& (SysRegs.CellOffsetVotageDiv>2))
+                            {
+                               slave1voltagoffset=SysRegs.CellOffsetVotageDiv;
+                            }
+                            if(SysRegs.CellOffsetVotageDiv<=2)
+                            {
+                                slave1voltagoffset=0;
+                                slave2voltagoffset=0;
+                            }
+
+                        }
+
+                        SysRegs.SystemStateARegs.bit.VoltageoffsetFlag=1;
+                    }
+            break;
+            default :
+            break;
+
+        }
+
+        switch(SysRegs.Timer1000msec)  // 1000
+        {
+            case 100:
+                     TEMP1DO00L;
+                     TEMP1DO01L;
+                     TEMP1DO02L;
+            break;
+            case 105:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave1Regs.ADCTEMPBuf[0] = (ADCRegs.ADCA01buf);
+            break;
+            case 110:
+                     TEMP1DO00H;
+                     TEMP1DO01L;
+                     TEMP1DO02L;
+            break;
+            case 115:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave1Regs.ADCTEMPBuf[1] = (ADCRegs.ADCA01buf);
+            break;
+            case 120:
+                     TEMP1DO00L;
+                     TEMP1DO01H;
+                     TEMP1DO02L;
+            break;
+            case 125:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave1Regs.ADCTEMPBuf[2] = (ADCRegs.ADCA01buf);
+            break;
+            case 130:
+                     TEMP1DO00H;
+                     TEMP1DO01H;
+                     TEMP1DO02L;
+            break;
+            case 135:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave1Regs.ADCTEMPBuf[3] = (ADCRegs.ADCA01buf);
+            break;
+            case 140:
+                     TEMP1DO00L;
+                     TEMP1DO01L;
+                     TEMP1DO02H;
+
+            break;
+            case 145:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave1Regs.ADCTEMPBuf[4] = (ADCRegs.ADCA01buf);
+            break;
+            case 150:
+                     TEMP1DO00H;
+                     TEMP1DO01L;
+                     TEMP1DO02H;
+            break;
+            case 155:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave1Regs.ADCTEMPBuf[5] = (ADCRegs.ADCA01buf);
+            break;
+            case 160:
+                     TEMP1DO00L;
+                     TEMP1DO01H;
+                     TEMP1DO02H;
+            break;
+            case 165:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave1Regs.ADCTEMPBuf[6] = (ADCRegs.ADCA01buf);
+            break;
+            case 170:
+                    TEMP1DO00H;
+                    TEMP1DO01H;
+                    TEMP1DO02H;
+            break;
+            case 175:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave1Regs.ADCTEMPBuf[7] = (ADCRegs.ADCA01buf);
+            break;
+////////////////////////////////////////////////////////////////
+            case 200:
+                     TEMP2DO00L;
+                     TEMP2DO01L;
+                     TEMP2DO02L;
+            break;
+            case 205:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave2Regs.ADCTEMPBuf[0] = (ADCRegs.ADCA03buf);
+            break;
+            case 210:
+                     TEMP2DO00H;
+                     TEMP2DO01L;
+                     TEMP2DO02L;
+            break;
+            case 215:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave2Regs.ADCTEMPBuf[1]= (ADCRegs.ADCA03buf);
+            break;
+            case 220:
+                     TEMP2DO00L;
+                     TEMP2DO01H;
+                     TEMP2DO02L;
+            break;
+            case 225:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave2Regs.ADCTEMPBuf[2] = (ADCRegs.ADCA03buf);
+            break;
+            case 230:
+                     TEMP2DO00H;
+                     TEMP2DO01H;
+                     TEMP2DO02L;
+            break;
+            case 235:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave2Regs.ADCTEMPBuf[3] = (ADCRegs.ADCA03buf);
+            break;
+            case 240:
+                     TEMP2DO00L;
+                     TEMP2DO01L;
+                     TEMP2DO02H;
+
+            break;
+            case 245:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave2Regs.ADCTEMPBuf[4] = (ADCRegs.ADCA03buf);
+            break;
+            case 250:
+                     TEMP2DO00H;
+                     TEMP2DO01L;
+                     TEMP2DO02H;
+            break;
+            case 255:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave2Regs.ADCTEMPBuf[5] = (ADCRegs.ADCA03buf);
+            break;
+            case 260:
+                     TEMP2DO00L;
+                     TEMP2DO01H;
+                     TEMP2DO02H;
+            break;
+            case 265:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave2Regs.ADCTEMPBuf[6] = (ADCRegs.ADCA03buf);
+            break;
+            case 270:
+                     TEMP2DO00H;
+                     TEMP2DO01H;
+                     TEMP2DO02H;
+            break;
+            case 275:
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave2Regs.ADCTEMPBuf[7] = (ADCRegs.ADCA03buf);
+
+            break;
+
+
+            case 300:
+                     // Temp Ch 3.0
+                     TEMP3DO00L;
+                     TEMP3DO01L;
+                     TEMP3DO02L;
+            break;
+            case 305:
+                      Slave3Regs.ADCTEMPBuf[7]=0;
+                      AdcRegs.ADCSOCFRC1.all = 0xFF;
+                      ADC_Read(&ADCRegs);
+                      Slave3Regs.ADCTEMPBuf[7] = (ADCRegs.ADCA07buf);
+            break;
+            case 310:
+                     // Temp Ch 3.0
+                     TEMP3DO00H;
+                     TEMP3DO01L;
+                     TEMP3DO02L;
+            break;
+            case 315:
+                      Slave3Regs.ADCTEMPBuf[0]=0;
+                      AdcRegs.ADCSOCFRC1.all = 0xFF;
+                      ADC_Read(&ADCRegs);
+                      Slave3Regs.ADCTEMPBuf[0] = (ADCRegs.ADCA07buf);
+            break;
+            case 320:// Temp Ch 3.1
+                      TEMP3DO00L;
+                      TEMP3DO01H;
+                      TEMP3DO02L;
+            break;
+            case 325:
+                      Slave3Regs.ADCTEMPBuf[1]=0;
+                      AdcRegs.ADCSOCFRC1.all = 0xFF;
+                      ADC_Read(&ADCRegs);
+                      Slave3Regs.ADCTEMPBuf[1] = (ADCRegs.ADCA07buf);
+            break;
+            case 330:// Temp Ch 3.2
+                      TEMP3DO00H;
+                      TEMP3DO01H;
+                      TEMP3DO02L;
+           break;
+           case 335:
+                      Slave3Regs.ADCTEMPBuf[2] =0;
+                      AdcRegs.ADCSOCFRC1.all = 0xFF;
+                      ADC_Read(&ADCRegs);
+                      Slave3Regs.ADCTEMPBuf[2] = (ADCRegs.ADCA07buf);
+           break;
+           case 340:
+                         // Temp Ch 3.3
+                     TEMP3DO00L;
+                     TEMP3DO01L;
+                     TEMP3DO02H;
+          break;
+          case 345:
+                     Slave3Regs.ADCTEMPBuf[3] =0;
+                     AdcRegs.ADCSOCFRC1.all = 0xFF;
+                     ADC_Read(&ADCRegs);
+                     Slave3Regs.ADCTEMPBuf[3] = (ADCRegs.ADCA07buf);
+          break;
+          case 350:
+                        // Temp Ch 3.4
+                     TEMP3DO00H;
+                     TEMP3DO01L;
+                     TEMP3DO02H;
+
+          break;
+          case 355:
+                      Slave3Regs.ADCTEMPBuf[4]=0;
+                      AdcRegs.ADCSOCFRC1.all = 0xFF;
+                      ADC_Read(&ADCRegs);
+                      Slave3Regs.ADCTEMPBuf[4] = (ADCRegs.ADCA07buf);
+          break;
+          case 360:
+                        // Temp Ch 3.6
+                      TEMP3DO00L;
+                      TEMP3DO01H;
+                      TEMP3DO02H;
+          break;
+          case 365:
+                      Slave3Regs.ADCTEMPBuf[5]=0;
+                      AdcRegs.ADCSOCFRC1.all = 0xFF;
+                      ADC_Read(&ADCRegs);
+                      Slave3Regs.ADCTEMPBuf[5] = (ADCRegs.ADCA07buf);
+          break;
+          case 370:
+
+                      // Temp Ch 3.7
+                      TEMP3DO00H;
+                      TEMP3DO01H;
+                      TEMP3DO02H;
+          break;
+          case 375:
+                      Slave3Regs.ADCTEMPBuf[6]=0;
+                      AdcRegs.ADCSOCFRC1.all = 0xFF;
+                      ADC_Read(&ADCRegs);
+                      Slave3Regs.ADCTEMPBuf[6] = (ADCRegs.ADCA07buf);
+          break;
+
+
+          case 600:
+                    if(CANRXRegs.RackCellMaxTemp>C_FANOffTemperature)
+                    {
+                        if(CANRXRegs.RackCellMaxTemp>=C_FANOnTemperature)
+                        {
+                            SysRegs.DigitalOutPutReg.bit.FAN = 1;
+                            if((SysRegs.DigitalInputReg.bit.Fanstates==1) && (CANRXRegs.RackCellMaxTemp<C_FANOnTemperature))
+                            {
+                                if(CANRXRegs.RackCellMaxTemp<C_FANOffTemperature)
+                                {
+                                    SysRegs.DigitalOutPutReg.bit.FAN = 0;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        SysRegs.DigitalOutPutReg.bit.FAN = 0;
+                    }
+            break;
+
+        }
+        switch(SysRegs.Timer2000msec)
+        {
+            case 100:
+                     CANTXRegs.UnitBMSID             = 0x401 | (SysRegs.BMSIDRegs.all <<4);
+                     CANTXRegs.CellVotlageMaxNumber  = C_CellVoltageNum;
+                     CANTXRegs.CellVotlageNumber     = 0;//0,1,2
+                     CANTXRegs.NumberShift           = CANTXRegs.CellVotlageNumber <<8;
+                     CANTXRegs.CellNumStart          = (CANTXRegs.NumberShift|CANTXRegs.CellVotlageMaxNumber);
+                     CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumStart,
+                                                                         CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber],
+                                                                         CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+1],
+                                                                         CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+2]);
+            break;
+            case 200:
+                       CANTXRegs.UnitBMSID             = 0x401 | (SysRegs.BMSIDRegs.all <<4);
+                       CANTXRegs.CellVotlageMaxNumber  = C_CellVoltageNum;
+                       CANTXRegs.CellVotlageNumber     = 3;//3,4,5
+                       CANTXRegs.NumberShift           = CANTXRegs.CellVotlageNumber <<8;
+                       CANTXRegs.CellNumStart          = (CANTXRegs.NumberShift|CANTXRegs.CellVotlageMaxNumber);
+                       CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumStart,
+                                                                         CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber],
+                                                                         CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+1],
+                                                                         CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+2]);
+            break;
+            case 300:
+                         CANTXRegs.UnitBMSID             = 0x401 | (SysRegs.BMSIDRegs.all <<4);
+                         CANTXRegs.CellVotlageMaxNumber  = C_CellVoltageNum;
+                         CANTXRegs.CellVotlageNumber     = 6;//6,7,8
+                         CANTXRegs.NumberShift           = CANTXRegs.CellVotlageNumber <<8;
+                         CANTXRegs.CellNumStart          = (CANTXRegs.NumberShift|CANTXRegs.CellVotlageMaxNumber);
+                         CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumStart,
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+1],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+2]);
+            break;
+            case 400:
+                        CANTXRegs.UnitBMSID             = 0x401 | (SysRegs.BMSIDRegs.all <<4);
+                        CANTXRegs.CellVotlageMaxNumber  = C_CellVoltageNum;
+                        CANTXRegs.CellVotlageNumber     = 9;//9,10,11
+                        CANTXRegs.NumberShift           = CANTXRegs.CellVotlageNumber <<8;
+                        CANTXRegs.CellNumStart          = (CANTXRegs.NumberShift|CANTXRegs.CellVotlageMaxNumber);
+                        CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumStart,
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+1],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+2]);
+            break;
+            case 500:
+                        CANTXRegs.UnitBMSID             = 0x401 | (SysRegs.BMSIDRegs.all <<4);
+                        CANTXRegs.CellVotlageMaxNumber  = C_CellVoltageNum;
+                        CANTXRegs.CellVotlageNumber     = 12;//12,13,14
+                        CANTXRegs.NumberShift           = CANTXRegs.CellVotlageNumber <<8;
+                        CANTXRegs.CellNumStart          = (CANTXRegs.NumberShift|CANTXRegs.CellVotlageMaxNumber);
+                        CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumStart,
+                                                                             CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber],
+                                                                             CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+1],
+                                                                             CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+2]);
+            break;
+            case 600:
+                       CANTXRegs.UnitBMSID             = 0x401 | (SysRegs.BMSIDRegs.all <<4);
+                       CANTXRegs.CellVotlageMaxNumber  = C_CellVoltageNum;
+                       CANTXRegs.CellVotlageNumber     = 15;//15,16,17
+                       CANTXRegs.NumberShift           = CANTXRegs.CellVotlageNumber <<8;
+                       CANTXRegs.CellNumStart          = (CANTXRegs.NumberShift|CANTXRegs.CellVotlageMaxNumber);
+                       CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumStart,
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+1],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+2]);
+            break;
+            case 700:
+                       CANTXRegs.UnitBMSID             = 0x401 | (SysRegs.BMSIDRegs.all <<4);
+                       CANTXRegs.CellVotlageMaxNumber  = C_CellVoltageNum;
+                       CANTXRegs.CellVotlageNumber     = 18;//18,19,20
+                       CANTXRegs.NumberShift           = CANTXRegs.CellVotlageNumber <<8;
+                       CANTXRegs.CellNumStart          = (CANTXRegs.NumberShift|CANTXRegs.CellVotlageMaxNumber);
+                       CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumStart,
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+1],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+2]);//
+            break;
+            case 800:
+                      CANTXRegs.UnitBMSID             = 0x401 | (SysRegs.BMSIDRegs.all <<4);
+                      CANTXRegs.CellVotlageMaxNumber  = C_CellVoltageNum;
+                      CANTXRegs.CellVotlageNumber     = 21;//21,22,23
+                      CANTXRegs.NumberShift           = CANTXRegs.CellVotlageNumber <<8;
+                      CANTXRegs.CellNumStart          = (CANTXRegs.NumberShift|CANTXRegs.CellVotlageMaxNumber);
+                      CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumStart,
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+1],
+                                                                            CANTXRegs.BatteryVoltageCell[CANTXRegs.CellVotlageNumber+2]);//
+            break;
+            case 900:
+                      CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                      CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                      CANTXRegs.CellTemperatureNumber    = 0;//0,1,2
+                      CANTXRegs.NumberTempShift          = CANTXRegs.CellTemperatureNumber << 8;
+                      CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                      CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+1],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+2]);
+             break;
+             case 1000:
+                      CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                      CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                      CANTXRegs.CellTemperatureNumber    = 3;//3,4,5
+                      CANTXRegs.NumberTempShift          = CANTXRegs.CellTemperatureNumber << 8;
+                      CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                      CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+1],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+2]);
+             break;
+             case 1100:
+                       CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                       CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                       CANTXRegs.CellTemperatureNumber    = 6;//6,7,8
+                       CANTXRegs.NumberTempShift          = CANTXRegs.CellTemperatureNumber << 8;
+                       CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                       CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+1],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+2]);
+              break;
+              case 1200:
+                        CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                        CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                        CANTXRegs.CellTemperatureNumber    = 9;//9,10,11
+                        CANTXRegs.NumberTempShift          = CANTXRegs.CellTemperatureNumber << 8;
+                        CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                        CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+1],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+2]);
+               break;
+               case 1300:
+                         CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                         CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                         CANTXRegs.CellTemperatureNumber    = 12;//12,13,14
+                         CANTXRegs.NumberTempShift          = CANTXRegs.CellTemperatureNumber << 8;
+                         CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                         CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+1],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+2]);
+                break;
+                case 1400:
+                          CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                          CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                          CANTXRegs.CellTemperatureNumber    = 15;//15,16,17
+                          CANTXRegs.NumberTempShift          = CANTXRegs.CellTemperatureNumber << 8;
+                          CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                          CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+1],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+2]);
+                break;
+                case 1500:
+                          CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                          CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                          CANTXRegs.CellTemperatureNumber    = 18;//18,19,20
+                          CANTXRegs.NumberTempShift          = CANTXRegs.CellTemperatureNumber << 8;
+                          CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                          CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+1],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+2]);
+                break;
+                case 1800:
+                          CANTXRegs.UnitBMSID                = 0x402 | (SysRegs.BMSIDRegs.all <<4);
+                          CANTXRegs.CellTemperatureMaxNumber = C_CellTemperatureNum;
+                          CANTXRegs.CellTemperatureNumber    = 21;//21,22,23
+                          CANTXRegs.NumberTempShift          = CANTXRegs.CellTemperatureNumber << 8;
+                          CANTXRegs.CellNumTempStart         = (CANTXRegs.NumberTempShift|CANTXRegs.CellTemperatureMaxNumber);
+                          CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.CellNumTempStart,
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+1],
+                                                                             CANTXRegs.BatteryTempCell[CANTXRegs.CellTemperatureNumber+2]);
+                break;
+                case 1900:
+                         //   CANRXRegs.Cell_Data_Request =0;
+                break;
+
+
+
+            }
+    }
+
+
+    DigitalOutput(&SysRegs);
+    DigitalInput(&SysRegs);
+	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+}
+
+interrupt void ISR_CANRXINTA(void)
+{
+    CANRXRegs.RxCount++;
+    if(ECanaRegs.CANGIF0.bit.GMIF0 == 1)
+    {
+
+        if(ECanaRegs.CANRMP.bit.RMP0==1)
+        {
+    //        CANRXRegs.Cell_Data_Request        = (ECanaMboxes.MBOX0.MDH.byte.BYTE5<<8)|(ECanaMboxes.MBOX0.MDH.byte.BYTE4);
+    //     CANRXRegs.RxCount0++;
+        }
+        if(ECanaRegs.CANRMP.bit.RMP1==1)
+        {
+    //        CANRXRegs.Cell_Data_Request        = (ECanaMboxes.MBOX0.MDH.byte.BYTE5<<8)|(ECanaMboxes.MBOX0.MDH.byte.BYTE4);
+    //    CANRXRegs.RxCount1++;
+        }
+        if(ECanaRegs.CANRMP.bit.RMP2==1)
+        {
+    //        CANRXRegs.Cell_Data_Request        = (ECanaMboxes.MBOX0.MDH.byte.BYTE5<<8)|(ECanaMboxes.MBOX0.MDH.byte.BYTE4);
+    //    CANRXRegs.RxCount2++;
+        }
+        if(ECanaRegs.CANRMP.bit.RMP3==1)
+        {
+    //        CANRXRegs.Cell_Data_Request        = (ECanaMboxes.MBOX0.MDH.byte.BYTE5<<8)|(ECanaMboxes.MBOX0.MDH.byte.BYTE4);
+    //    CANRXRegs.RxCount3++;
+        }
+        if(ECanaRegs.CANRMP.bit.RMP30==1)  // SystemBMS Request ID 0x300
+        {
+            CANRXRegs.RxCount31++;
+            CANRXRegs.BMSID                    = (ECanaMboxes.MBOX30.MDL.byte.BYTE0);
+            CANRXRegs.Cell_Data_Request        = (ECanaMboxes.MBOX30.MDL.byte.BYTE1);
+            SysRegs.BalanceMode                = (ECanaMboxes.MBOX30.MDL.byte.BYTE2);
+            SysRegs.HeartBeat                  = (ECanaMboxes.MBOX30.MDL.byte.BYTE3);
+            CANRXRegs.RackCellMinVoltage       = (ECanaMboxes.MBOX30.MDH.byte.BYTE5<<8)|(ECanaMboxes.MBOX30.MDH.byte.BYTE4);
+            CANRXRegs.RackCellMaxTemp          = (ECanaMboxes.MBOX30.MDH.byte.BYTE7<<8)|(ECanaMboxes.MBOX30.MDH.byte.BYTE6);
+    /*
+            CANRXRegs.RackCellMinVoltage       = (ECanaMboxes.MBOX30.MDL.byte.BYTE1<<8)|(ECanaMboxes.MBOX30.MDL.byte.BYTE0);
+            CANRXRegs.RackCellMaxTemp          = (ECanaMboxes.MBOX30.MDL.byte.BYTE3<<8)|(ECanaMboxes.MBOX30.MDL.byte.BYTE2);
+            CANRXRegs.Cell_Data_Request        = (ECanaMboxes.MBOX30.MDH.byte.BYTE5<<8)|(ECanaMboxes.MBOX30.MDH.byte.BYTE4);
+            SysRegs.BalanceMode                = (ECanaMboxes.MBOX30.MDH.byte.BYTE6);
+            SysRegs.HeartBeat                  = (ECanaMboxes.MBOX30.MDH.byte.BYTE7);
+    */
+    //        if(SysRegs.BMS_Request_ID == 0xFF)//SysRegs.BMSIDRegs.all)
+            if(SysRegs.HeartBeat == 0x00)
+            {
+
+                SysRegs.DigitalOutPutReg.bit.LEDSTATE = 1;
+            }
+            else
+            {
+                SysRegs.DigitalOutPutReg.bit.LEDSTATE = 0;
+            }
+
+        }
+    }
+
+    ECanaRegs.CANRMP.bit.RMP0 = 1;  //interrupt pending clear by writing 1
+    ECanaRegs.CANRMP.bit.RMP1 = 1;
+    ECanaRegs.CANRMP.bit.RMP2 = 1;
+    ECanaRegs.CANRMP.bit.RMP3 = 1;
+    ECanaRegs.CANRMP.bit.RMP30 = 1;
+    PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
+}//EOF
+
+
+//interrupt void ISR_SCIRXINTA(void)
+//{
+//    PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;     // Acknowledge interrupt to PIE
+//}
+//
+
+
+

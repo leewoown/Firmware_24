@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;UnitBMS_22Ch&apos; to &apos;UnitBMS_24Ch&apos;" description="Rename resource &apos;UnitBMS_22Ch&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/UnitBMS_22Ch" name="UnitBMS_24Ch" stamp="1725457729029" updateReferences="true"/>
+</session>
