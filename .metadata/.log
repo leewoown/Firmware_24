@@ -6293,3 +6293,222 @@ Bit 1 of ST1 must be 0.
 !ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 02:56:17.601
 !MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
 
+!SESSION 2025-04-30 09:26:15.065 -----------------------------------------------
+eclipse.buildId=4.23.0.I20220308-0310
+java.version=11.0.13
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ko_KR
+Framework arguments:  -product com.ti.ccstudio.branding.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ti.ccstudio.branding.product
+
+!ENTRY com.ti.common.core 1 0 2025-04-30 09:26:41.019
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 1 0 2025-04-30 09:26:41.022
+!MESSAGE debugServerDir=C:/ti/ccs1271/ccs/ccs_base/DebugServer
+
+!ENTRY com.ti.ccstudio.ui 1 0 2025-04-30 09:27:52.820
+!MESSAGE CCS IDE session started!
+	CCS build: 12.7.1.00001
+	CCS location: C:/ti/ccs1271/ccs
+	Workspace location: D:/24_UnitBMS_24ChVER00
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.648
+!MESSAGE constructor
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.651
+!MESSAGE done with directories
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.653
+!MESSAGE loading ti_logger
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.657
+!MESSAGE Platform os: win32
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.659
+!MESSAGE loading cToolsIF
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.693
+!MESSAGE loading cTools
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.735
+!MESSAGE loading TraceFactory
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.774
+!MESSAGE loading sqlite3
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.777
+!MESSAGE loading CloudTrace
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2025-04-30 09:27:53.892
+!MESSAGE CloudTrace interface loaded
+
+!ENTRY com.ti.ccstudio.project.ui.webcontent 1 0 2025-04-30 09:27:54.357
+!MESSAGE CCS HTTP adapter started! [ccs.port:54850] - Open 'http://localhost:54850/ide' in web browser to see listing of available APIs...
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:27:57.301
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:27:59.181
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:28:01.772
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:28:04.184
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:28:05.924
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:28:08.240
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:28:09.452
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:28:10.598
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:28:11.935
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:28:17.657
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:28:28.459
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:28:31.707
+!MESSAGE DS_ERROR: C28xx: Error: (Error -1135 @ 0x3F5EE1) The debug probe reported an error. Confirm debug probe configuration and connections, reset the debug probe, and retry the operation. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:28:31.802
+!MESSAGE DS_ERROR: C28xx: Unable to determine target status after 20 attempts
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:28:31.804
+!MESSAGE DS_ERROR: C28xx: Failed to remove the debug state from the target before disconnecting.  There may still be breakpoint op-codes embedded in program memory.  It is recommended that you reset the emulator before you connect and reload your program before you continue debugging
+
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:29:23.677
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2025-04-30 09:29:25.164
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:29:40.213
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -1015 @ 0x0) Device is not responding to the request.  Device may be locked, or the debug probe connection may be unreliable. Unlock the device if possible (e.g. use wait in reset mode, and power-cycle the board). If error persists, confirm configuration and/or try more reliable JTAG settings (e.g. lower TCLK). (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:29:40.268
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -1015 @ 0x0)
+Device is not responding to the request.  Device may be locked, or the debug probe connection may be unreliable. Unlock the device if possible (e.g. use wait in reset mode, and power-cycle the board). If error persists, confirm configuration and/or try more reliable JTAG settings (e.g. lower TCLK).
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:29:59.800
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -1015 @ 0x0) Device is not responding to the request.  Device may be locked, or the debug probe connection may be unreliable. Unlock the device if possible (e.g. use wait in reset mode, and power-cycle the board). If error persists, confirm configuration and/or try more reliable JTAG settings (e.g. lower TCLK). (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:29:59.847
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -1015 @ 0x0)
+Device is not responding to the request.  Device may be locked, or the debug probe connection may be unreliable. Unlock the device if possible (e.g. use wait in reset mode, and power-cycle the board). If error persists, confirm configuration and/or try more reliable JTAG settings (e.g. lower TCLK).
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:30:35.847
+!MESSAGE DS_ERROR: C28xx: Error initializing emulator: (Error -2083 @ 0x0) Unable to communicate with the debug probe. Confirm debug probe configuration and connections, reset the debug probe, and retry the operation. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:30:35.885
+!MESSAGE DS_ERROR: Error initializing emulator:
+(Error -2083 @ 0x0)
+Unable to communicate with the debug probe. Confirm debug probe configuration and connections, reset the debug probe, and retry the operation.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:31:16.298
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:37:08.413
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:37:37.843
+!MESSAGE DS_ERROR: C28xx: Trouble Reading Memory Block at 0x9108 on Page 1 of Length 0x1: (Error -183 @ 0x0) The controller has detected a cable break far-from itself. The user must connect the cable/pod to the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:37:37.908
+!MESSAGE DS_ERROR: C28xx: Trouble Halting Target CPU: (Error -2062 @ 0x0) Unable to halt device. Reset the device, and retry the operation. If error persists, confirm configuration, power-cycle the board, and/or try more reliable JTAG settings (e.g. lower TCLK). (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:37:37.971
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:37:38.051
+!MESSAGE DS_ERROR: C28xx: Failed to remove the debug state from the target before disconnecting.  There may still be breakpoint op-codes embedded in program memory.  It is recommended that you reset the emulator before you connect and reload your program before you continue debugging
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:48:13.414
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -233 @ 0x0) The JTAG IR and DR scan-paths cannot circulate bits, they may be broken. An attempt to scan the JTAG scan-path has failed. The target's JTAG scan-path appears to be broken with a stuck-at-ones or stuck-at-zero fault. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:48:13.455
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -233 @ 0x0)
+The JTAG IR and DR scan-paths cannot circulate bits, they may be broken.
+An attempt to scan the JTAG scan-path has failed.
+The target's JTAG scan-path appears to be broken
+with a stuck-at-ones or stuck-at-zero fault.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:48:40.165
+!MESSAGE DS_ERROR: C28xx: Error connecting to the target: (Error -180 @ 0x0) The controller has detected a target power loss. The user must turn-on or connect the power supply for the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:48:40.468
+!MESSAGE DS_ERROR: Error connecting to the target:
+(Error -180 @ 0x0)
+The controller has detected a target power loss.
+The user must turn-on or connect the power supply for the target.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:49:21.407
+!MESSAGE DS_ERROR: Do you want to enable realtime mode?
+Can't enter realtime mode unless debug events are enabled.
+Bit 1 of ST1 must be 0.
+(Emulation package 12.7.0.00130)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:50:07.495
+!MESSAGE DS_ERROR: C28xx: Trouble Reading Memory Block at 0x92ce on Page 1 of Length 0x2: (Error -183 @ 0x0) The controller has detected a cable break far-from itself. The user must connect the cable/pod to the target. (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:50:07.592
+!MESSAGE DS_ERROR: C28xx: Trouble Halting Target CPU: (Error -2062 @ 0x0) Unable to halt device. Reset the device, and retry the operation. If error persists, confirm configuration, power-cycle the board, and/or try more reliable JTAG settings (e.g. lower TCLK). (Emulation package 12.7.0.00130) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:50:07.655
+!MESSAGE DS_ERROR: C28xx: JTAG Communication Error 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2025-04-30 09:50:07.735
+!MESSAGE DS_ERROR: C28xx: Failed to remove the debug state from the target before disconnecting.  There may still be breakpoint op-codes embedded in program memory.  It is recommended that you reset the emulator before you connect and reload your program before you continue debugging
+
