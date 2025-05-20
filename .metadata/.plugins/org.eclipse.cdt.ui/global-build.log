@@ -37865,3 +37865,363 @@ gmake[1]: 'UnitBMS_24Ch.out' is up to date.
 gmake[1]: 'UnitBMS_24Ch.out' is up to date.
 
 **** Build Finished ****
+
+**** Clean-only build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 clean -O 
+ 
+DEL /F  "UnitBMS_24Ch.out" 
+DEL /F "main.obj" "source\DSP2803x_Adc.obj" "source\DSP2803x_CSMPasswords.obj" "source\DSP2803x_CodeStartBranch.obj" "source\DSP2803x_CpuTimers.obj" "source\DSP2803x_DefaultIsr.obj" "source\DSP2803x_DeiveDriver.obj" "source\DSP2803x_ECan.obj" "source\DSP2803x_EQep.obj" "source\DSP2803x_GlobalVariableDefs.obj" "source\DSP2803x_Gpio.obj" "source\DSP2803x_I2C.obj" "source\DSP2803x_MemCopy.obj" "source\DSP2803x_PieCtrl.obj" "source\DSP2803x_PieVect.obj" "source\DSP2803x_Sci.obj" "source\DSP2803x_Spi.obj" "source\DSP2803x_SysCtrl.obj" "source\DSP2803x_usDelay.obj" "source\DSP28x_Project.obj" 
+DEL /F "main.d" "source\DSP2803x_Adc.d" "source\DSP2803x_CpuTimers.d" "source\DSP2803x_DefaultIsr.d" "source\DSP2803x_DeiveDriver.d" "source\DSP2803x_ECan.d" "source\DSP2803x_EQep.d" "source\DSP2803x_GlobalVariableDefs.d" "source\DSP2803x_Gpio.d" "source\DSP2803x_I2C.d" "source\DSP2803x_MemCopy.d" "source\DSP2803x_PieCtrl.d" "source\DSP2803x_PieVect.d" "source\DSP2803x_Sci.d" "source\DSP2803x_Spi.d" "source\DSP2803x_SysCtrl.d" "source\DSP28x_Project.d" 
+DEL /F "source\DSP2803x_CSMPasswords.d" "source\DSP2803x_CodeStartBranch.d" "source\DSP2803x_usDelay.d" 
+D:\24_UnitBMS_24ChVER00\UnitBMS_24Ch\Debug\source\DSP2803x_CSMPasswords.d을(를) 찾을 수 없습니다.
+Finished clean
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../source/DSP2803x_Adc.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_Adc.d_raw" --obj_directory="source"  "../source/DSP2803x_Adc.c"
+Finished building: "../source/DSP2803x_Adc.c"
+ 
+Building file: "../source/DSP2803x_CSMPasswords.asm"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_CSMPasswords.d_raw" --obj_directory="source"  "../source/DSP2803x_CSMPasswords.asm"
+Finished building: "../source/DSP2803x_CSMPasswords.asm"
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building file: "../source/DSP2803x_CodeStartBranch.asm"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_CodeStartBranch.d_raw" --obj_directory="source"  "../source/DSP2803x_CodeStartBranch.asm"
+Finished building: "../source/DSP2803x_CodeStartBranch.asm"
+ 
+Building file: "../source/DSP2803x_CpuTimers.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_CpuTimers.d_raw" --obj_directory="source"  "../source/DSP2803x_CpuTimers.c"
+Finished building: "../source/DSP2803x_CpuTimers.c"
+ 
+Building file: "../source/DSP2803x_DefaultIsr.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_DefaultIsr.d_raw" --obj_directory="source"  "../source/DSP2803x_DefaultIsr.c"
+Finished building: "../source/DSP2803x_DefaultIsr.c"
+ 
+Building file: "../source/DSP2803x_EQep.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_EQep.d_raw" --obj_directory="source"  "../source/DSP2803x_EQep.c"
+Finished building: "../source/DSP2803x_EQep.c"
+ 
+Building file: "../source/DSP2803x_ECan.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_ECan.d_raw" --obj_directory="source"  "../source/DSP2803x_ECan.c"
+Finished building: "../source/DSP2803x_ECan.c"
+ 
+Building file: "../source/DSP2803x_Gpio.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_Gpio.d_raw" --obj_directory="source"  "../source/DSP2803x_Gpio.c"
+Finished building: "../source/DSP2803x_Gpio.c"
+ 
+Building file: "../source/DSP2803x_DeiveDriver.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_DeiveDriver.d_raw" --obj_directory="source"  "../source/DSP2803x_DeiveDriver.c"
+Finished building: "../source/DSP2803x_DeiveDriver.c"
+ 
+Building file: "../source/DSP2803x_GlobalVariableDefs.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_GlobalVariableDefs.d_raw" --obj_directory="source"  "../source/DSP2803x_GlobalVariableDefs.c"
+Finished building: "../source/DSP2803x_GlobalVariableDefs.c"
+ 
+Building file: "../source/DSP2803x_I2C.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_I2C.d_raw" --obj_directory="source"  "../source/DSP2803x_I2C.c"
+Finished building: "../source/DSP2803x_I2C.c"
+ 
+Building file: "../source/DSP2803x_MemCopy.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_MemCopy.d_raw" --obj_directory="source"  "../source/DSP2803x_MemCopy.c"
+Finished building: "../source/DSP2803x_MemCopy.c"
+ 
+Building file: "../source/DSP2803x_PieCtrl.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_PieCtrl.d_raw" --obj_directory="source"  "../source/DSP2803x_PieCtrl.c"
+Finished building: "../source/DSP2803x_PieCtrl.c"
+ 
+Building file: "../source/DSP2803x_PieVect.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_PieVect.d_raw" --obj_directory="source"  "../source/DSP2803x_PieVect.c"
+Finished building: "../source/DSP2803x_PieVect.c"
+ 
+Building file: "../source/DSP2803x_Sci.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_Sci.d_raw" --obj_directory="source"  "../source/DSP2803x_Sci.c"
+Finished building: "../source/DSP2803x_Sci.c"
+ 
+Building file: "../source/DSP2803x_Spi.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_Spi.d_raw" --obj_directory="source"  "../source/DSP2803x_Spi.c"
+Finished building: "../source/DSP2803x_Spi.c"
+ 
+Building file: "../source/DSP2803x_SysCtrl.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_SysCtrl.d_raw" --obj_directory="source"  "../source/DSP2803x_SysCtrl.c"
+Finished building: "../source/DSP2803x_SysCtrl.c"
+ 
+Building file: "../source/DSP2803x_usDelay.asm"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_usDelay.d_raw" --obj_directory="source"  "../source/DSP2803x_usDelay.asm"
+Finished building: "../source/DSP2803x_usDelay.asm"
+ 
+Building file: "../source/DSP28x_Project.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP28x_Project.d_raw" --obj_directory="source"  "../source/DSP28x_Project.c"
+Finished building: "../source/DSP28x_Project.c"
+ 
+Building target: "UnitBMS_24Ch.out"
+Invoking: C2000 Linker
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"UnitBMS_24Ch.map" --stack_size=0x300 --warn_sections -i"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd" -i"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="UnitBMS_24Ch_linkInfo.xml" --rom_model -o "UnitBMS_24Ch.out" "./main.obj" "./source/DSP2803x_Adc.obj" "./source/DSP2803x_CSMPasswords.obj" "./source/DSP2803x_CodeStartBranch.obj" "./source/DSP2803x_CpuTimers.obj" "./source/DSP2803x_DefaultIsr.obj" "./source/DSP2803x_DeiveDriver.obj" "./source/DSP2803x_ECan.obj" "./source/DSP2803x_EQep.obj" "./source/DSP2803x_GlobalVariableDefs.obj" "./source/DSP2803x_Gpio.obj" "./source/DSP2803x_I2C.obj" "./source/DSP2803x_MemCopy.obj" "./source/DSP2803x_PieCtrl.obj" "./source/DSP2803x_PieVect.obj" "./source/DSP2803x_Sci.obj" "./source/DSP2803x_Spi.obj" "./source/DSP2803x_SysCtrl.obj" "./source/DSP2803x_usDelay.obj" "./source/DSP28x_Project.obj"  -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/rts2800_ml.lib" -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/libc.a" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/DSP2803x_Headers_nonBIOS.cmd" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/F28035.cmd" 
+<Linking>
+Finished building target: "UnitBMS_24Ch.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../source/DSP2803x_Sci.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_Sci.d_raw" --obj_directory="source"  "../source/DSP2803x_Sci.c"
+Finished building: "../source/DSP2803x_Sci.c"
+ 
+Building file: "../source/DSP2803x_Gpio.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_Gpio.d_raw" --obj_directory="source"  "../source/DSP2803x_Gpio.c"
+Finished building: "../source/DSP2803x_Gpio.c"
+ 
+Building file: "../source/DSP2803x_ECan.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_ECan.d_raw" --obj_directory="source"  "../source/DSP2803x_ECan.c"
+Finished building: "../source/DSP2803x_ECan.c"
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building file: "../source/DSP2803x_DeiveDriver.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_DeiveDriver.d_raw" --obj_directory="source"  "../source/DSP2803x_DeiveDriver.c"
+Finished building: "../source/DSP2803x_DeiveDriver.c"
+ 
+Building file: "../source/DSP28x_Project.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP28x_Project.d_raw" --obj_directory="source"  "../source/DSP28x_Project.c"
+Finished building: "../source/DSP28x_Project.c"
+ 
+Building target: "UnitBMS_24Ch.out"
+Invoking: C2000 Linker
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"UnitBMS_24Ch.map" --stack_size=0x300 --warn_sections -i"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd" -i"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="UnitBMS_24Ch_linkInfo.xml" --rom_model -o "UnitBMS_24Ch.out" "./main.obj" "./source/DSP2803x_Adc.obj" "./source/DSP2803x_CSMPasswords.obj" "./source/DSP2803x_CodeStartBranch.obj" "./source/DSP2803x_CpuTimers.obj" "./source/DSP2803x_DefaultIsr.obj" "./source/DSP2803x_DeiveDriver.obj" "./source/DSP2803x_ECan.obj" "./source/DSP2803x_EQep.obj" "./source/DSP2803x_GlobalVariableDefs.obj" "./source/DSP2803x_Gpio.obj" "./source/DSP2803x_I2C.obj" "./source/DSP2803x_MemCopy.obj" "./source/DSP2803x_PieCtrl.obj" "./source/DSP2803x_PieVect.obj" "./source/DSP2803x_Sci.obj" "./source/DSP2803x_Spi.obj" "./source/DSP2803x_SysCtrl.obj" "./source/DSP2803x_usDelay.obj" "./source/DSP28x_Project.obj"  -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/rts2800_ml.lib" -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/libc.a" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/DSP2803x_Headers_nonBIOS.cmd" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/F28035.cmd" 
+<Linking>
+Finished building target: "UnitBMS_24Ch.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'main.obj' failed
+"../main.c", line 571: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 572: error #122: a case label may only be used within a switch
+"../main.c", line 592: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 593: error #122: a case label may only be used within a switch
+"../main.c", line 613: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 614: error #122: a case label may only be used within a switch
+"../main.c", line 633: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 634: error #122: a case label may only be used within a switch
+"../main.c", line 642: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 643: error #122: a case label may only be used within a switch
+"../main.c", line 646: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 647: error #123: a default label may only be used within a switch
+"../main.c", line 648: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 651: error #171: expected a declaration
+"../main.c", line 672: warning #12-D: parsing restarts here after previous syntax error
+"../main.c", line 674: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 674: error #148: declaration is incompatible with "volatile struct PIE_CTRL_REGS PieCtrlRegs" (declared at line 141 of "D:\24_UnitBMS_24ChVER00\include\DSP2803x_PieCtrl.h")
+"../main.c", line 674: error #66: expected a ";"
+"../main.c", line 675: error #171: expected a declaration
+"../main.c", line 699: warning #12-D: parsing restarts here after previous syntax error
+"../main.c", line 700: error #171: expected a declaration
+"../main.c", line 707: warning #12-D: parsing restarts here after previous syntax error
+"../main.c", line 708: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 708: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 21)
+"../main.c", line 708: error #66: expected a ";"
+"../main.c", line 709: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 709: error #148: declaration is incompatible with "volatile struct ECAN_REGS ECanaRegs" (declared at line 1125 of "D:\24_UnitBMS_24ChVER00\include\DSP2803x_ECan.h")
+"../main.c", line 709: error #66: expected a ";"
+"../main.c", line 711: error #171: expected a declaration
+"../main.c", line 728: warning #12-D: parsing restarts here after previous syntax error
+"../main.c", line 729: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 729: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 708)
+"../main.c", line 729: error #66: expected a ";"
+"../main.c", line 730: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 730: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 729)
+"../main.c", line 730: error #66: expected a ";"
+"../main.c", line 731: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 731: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 730)
+"../main.c", line 731: error #66: expected a ";"
+"../main.c", line 732: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 732: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 731)
+"../main.c", line 732: error #66: expected a ";"
+"../main.c", line 733: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 733: error #66: expected a ";"
+"../main.c", line 734: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 734: error #66: expected a ";"
+"../main.c", line 737: error #171: expected a declaration
+At end of source: warning #12-D: parsing restarts here after previous syntax error
+34 errors detected in the compilation of "../main.c".
+gmake: *** [main.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'main.obj' failed
+"../main.c", line 570: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 571: error #122: a case label may only be used within a switch
+"../main.c", line 591: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 592: error #122: a case label may only be used within a switch
+"../main.c", line 612: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 613: error #122: a case label may only be used within a switch
+"../main.c", line 632: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 633: error #122: a case label may only be used within a switch
+"../main.c", line 641: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 642: error #122: a case label may only be used within a switch
+"../main.c", line 645: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 646: error #123: a default label may only be used within a switch
+"../main.c", line 647: error #117: a break statement may only be used within a loop or switch
+"../main.c", line 650: error #171: expected a declaration
+"../main.c", line 671: warning #12-D: parsing restarts here after previous syntax error
+"../main.c", line 673: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 673: error #148: declaration is incompatible with "volatile struct PIE_CTRL_REGS PieCtrlRegs" (declared at line 141 of "D:\24_UnitBMS_24ChVER00\include\DSP2803x_PieCtrl.h")
+"../main.c", line 673: error #66: expected a ";"
+"../main.c", line 674: error #171: expected a declaration
+"../main.c", line 698: warning #12-D: parsing restarts here after previous syntax error
+"../main.c", line 699: error #171: expected a declaration
+"../main.c", line 706: warning #12-D: parsing restarts here after previous syntax error
+"../main.c", line 707: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 707: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 21)
+"../main.c", line 707: error #66: expected a ";"
+"../main.c", line 708: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 708: error #148: declaration is incompatible with "volatile struct ECAN_REGS ECanaRegs" (declared at line 1125 of "D:\24_UnitBMS_24ChVER00\include\DSP2803x_ECan.h")
+"../main.c", line 708: error #66: expected a ";"
+"../main.c", line 710: error #171: expected a declaration
+"../main.c", line 727: warning #12-D: parsing restarts here after previous syntax error
+"../main.c", line 728: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 728: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 707)
+"../main.c", line 728: error #66: expected a ";"
+"../main.c", line 729: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 729: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 728)
+"../main.c", line 729: error #66: expected a ";"
+"../main.c", line 730: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 730: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 729)
+"../main.c", line 730: error #66: expected a ";"
+"../main.c", line 731: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 731: error #148: declaration is incompatible with "struct ECAN_REGS ECanaShadow" (declared at line 730)
+"../main.c", line 731: error #66: expected a ";"
+"../main.c", line 732: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 732: error #66: expected a ";"
+"../main.c", line 733: warning #78-D: this declaration has no storage class or type specifier
+"../main.c", line 733: error #66: expected a ";"
+"../main.c", line 736: error #171: expected a declaration
+At end of source: warning #12-D: parsing restarts here after previous syntax error
+34 errors detected in the compilation of "../main.c".
+gmake: *** [main.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "UnitBMS_24Ch.out"
+Invoking: C2000 Linker
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"UnitBMS_24Ch.map" --stack_size=0x300 --warn_sections -i"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd" -i"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="UnitBMS_24Ch_linkInfo.xml" --rom_model -o "UnitBMS_24Ch.out" "./main.obj" "./source/DSP2803x_Adc.obj" "./source/DSP2803x_CSMPasswords.obj" "./source/DSP2803x_CodeStartBranch.obj" "./source/DSP2803x_CpuTimers.obj" "./source/DSP2803x_DefaultIsr.obj" "./source/DSP2803x_DeiveDriver.obj" "./source/DSP2803x_ECan.obj" "./source/DSP2803x_EQep.obj" "./source/DSP2803x_GlobalVariableDefs.obj" "./source/DSP2803x_Gpio.obj" "./source/DSP2803x_I2C.obj" "./source/DSP2803x_MemCopy.obj" "./source/DSP2803x_PieCtrl.obj" "./source/DSP2803x_PieVect.obj" "./source/DSP2803x_Sci.obj" "./source/DSP2803x_Spi.obj" "./source/DSP2803x_SysCtrl.obj" "./source/DSP2803x_usDelay.obj" "./source/DSP28x_Project.obj"  -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/rts2800_ml.lib" -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/libc.a" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/DSP2803x_Headers_nonBIOS.cmd" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/F28035.cmd" 
+<Linking>
+Finished building target: "UnitBMS_24Ch.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "UnitBMS_24Ch.out"
+Invoking: C2000 Linker
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"UnitBMS_24Ch.map" --stack_size=0x300 --warn_sections -i"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd" -i"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="UnitBMS_24Ch_linkInfo.xml" --rom_model -o "UnitBMS_24Ch.out" "./main.obj" "./source/DSP2803x_Adc.obj" "./source/DSP2803x_CSMPasswords.obj" "./source/DSP2803x_CodeStartBranch.obj" "./source/DSP2803x_CpuTimers.obj" "./source/DSP2803x_DefaultIsr.obj" "./source/DSP2803x_DeiveDriver.obj" "./source/DSP2803x_ECan.obj" "./source/DSP2803x_EQep.obj" "./source/DSP2803x_GlobalVariableDefs.obj" "./source/DSP2803x_Gpio.obj" "./source/DSP2803x_I2C.obj" "./source/DSP2803x_MemCopy.obj" "./source/DSP2803x_PieCtrl.obj" "./source/DSP2803x_PieVect.obj" "./source/DSP2803x_Sci.obj" "./source/DSP2803x_Spi.obj" "./source/DSP2803x_SysCtrl.obj" "./source/DSP2803x_usDelay.obj" "./source/DSP28x_Project.obj"  -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/rts2800_ml.lib" -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/libc.a" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/DSP2803x_Headers_nonBIOS.cmd" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/F28035.cmd" 
+<Linking>
+Finished building target: "UnitBMS_24Ch.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+gmake[1]: 'UnitBMS_24Ch.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_24Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "UnitBMS_24Ch.out"
+Invoking: C2000 Linker
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"UnitBMS_24Ch.map" --stack_size=0x300 --warn_sections -i"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd" -i"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="UnitBMS_24Ch_linkInfo.xml" --rom_model -o "UnitBMS_24Ch.out" "./main.obj" "./source/DSP2803x_Adc.obj" "./source/DSP2803x_CSMPasswords.obj" "./source/DSP2803x_CodeStartBranch.obj" "./source/DSP2803x_CpuTimers.obj" "./source/DSP2803x_DefaultIsr.obj" "./source/DSP2803x_DeiveDriver.obj" "./source/DSP2803x_ECan.obj" "./source/DSP2803x_EQep.obj" "./source/DSP2803x_GlobalVariableDefs.obj" "./source/DSP2803x_Gpio.obj" "./source/DSP2803x_I2C.obj" "./source/DSP2803x_MemCopy.obj" "./source/DSP2803x_PieCtrl.obj" "./source/DSP2803x_PieVect.obj" "./source/DSP2803x_Sci.obj" "./source/DSP2803x_Spi.obj" "./source/DSP2803x_SysCtrl.obj" "./source/DSP2803x_usDelay.obj" "./source/DSP28x_Project.obj"  -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/rts2800_ml.lib" -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/libc.a" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/DSP2803x_Headers_nonBIOS.cmd" -l"D:/24_UnitBMS_24ChVER00/C283x/DSP2803x_common/cmd/F28035.cmd" 
+<Linking>
+Finished building target: "UnitBMS_24Ch.out"
+ 
+
+**** Build Finished ****

@@ -167,6 +167,7 @@
  */
 //CPU 매크로선언 ------------------------------------------------------------------//
 #define	    CPUCLK            	     60000000L						    // CPU Main Clock
+#define     RackNum                  1
 //SCIA 매크로 선언 ----------------------------------------------------------------//
 #define		SCIA_LSPCLK			     (CPUCLK/2)							// Peripheral Low Speed Clock for SCI-B  //LOSPCP에서 설정
 #define		SCIA_BAUDRATE		     115200L							// SCI-A Baudrate
@@ -256,21 +257,21 @@ union DigitalOutPut_REG
 struct SystemStateA_BIT
 {     	// bits   description
     unsigned int     INITOK                     :1;    // 0
-    unsigned int     status01                   :1;    // 1
-    unsigned int     Fault                      :1;    // 2
-    unsigned int     BalanceStartStop           :1;    // 3
-    unsigned int     BalanceEnable              :1;    // 4
-    unsigned int     WaterleakFault             :1;    // 5, FAN Delection
-    unsigned int     CellVoltageFault           :1;    // 6
-    unsigned int     CellTemperatureFault       :1;    // 7
-    unsigned int     BATIC1ErrFault             :1;    // 8
-    unsigned int     CTCOMErrFault              :1;    // 9
-    unsigned int     MBCOMErrFault              :1;    // 10
-    unsigned int     HMICOMErrFault             :1;    // 11
-    unsigned int     CellVoltCAN                :1;    // 12
-    unsigned int     CellTempCAN                :1;    // 12
-    unsigned int     PackEn                     :1;    // 14
-    unsigned int     HmiEn                      :1;    // 15
+    unsigned int     Fault                      :1;    // 1
+    unsigned int     BalanceStartStop           :1;    // 2
+    unsigned int     WaterleakFault             :1;    // 3, FAN Delection
+    unsigned int     CellVoltageFault           :1;    // 4
+    unsigned int     CellTemperatureFault       :1;    // 5
+    unsigned int     BATIC1ErrFault             :1;    // 6
+    unsigned int     CTCOMErrFault              :1;    // 7
+    unsigned int     NotUsed08                  :1;    // 8
+    unsigned int     NotUsed09                  :1;    // 9
+    unsigned int     NotUsed10                  :1;    // 8
+    unsigned int     NotUsed11                  :1;    // 8
+    unsigned int     NotUsed12                  :1;    // 8
+    unsigned int     NotUsed13                  :1;    // 8
+    unsigned int     NotUsed14                  :1;    // 8
+    unsigned int     NotUsed15                  :1;    // 8
 };
 union SystemStateA_REG
 {
