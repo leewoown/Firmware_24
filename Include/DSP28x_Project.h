@@ -264,13 +264,13 @@ struct SystemStateA_BIT
     unsigned int     CellTemperatureFault       :1;    // 5
     unsigned int     BATIC1ErrFault             :1;    // 6
     unsigned int     CTCOMErrFault              :1;    // 7
-    unsigned int     NotUsed08                  :1;    // 8
-    unsigned int     NotUsed09                  :1;    // 9
-    unsigned int     NotUsed10                  :1;    // 8
-    unsigned int     NotUsed11                  :1;    // 8
-    unsigned int     NotUsed12                  :1;    // 8
-    unsigned int     NotUsed13                  :1;    // 8
-    unsigned int     NotUsed14                  :1;    // 8
+    unsigned int     MBCOMErrFault              :1;    // 8
+    unsigned int     HMICOMErrFault             :1;    // 9
+    unsigned int     BalanceEnable              :1;    // 8CellVoltCAN
+    unsigned int     CellVoltCAN                :1;    // 8HMICOMErrFault
+    unsigned int     CellTempCAN                :1;    // 8
+    unsigned int     HmiEn                      :1;    // 8
+    unsigned int     PackEn                     :1;    // 8
     unsigned int     NotUsed15                  :1;    // 8
 };
 union SystemStateA_REG

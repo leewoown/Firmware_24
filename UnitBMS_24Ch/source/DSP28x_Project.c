@@ -86,7 +86,7 @@ void SystemRegsInit(SystemReg *s)
        s->RackCellMinVoltage             = 0;
        s->RackCellDivVoltage             = 0;
 
-
+       s->SystemStateARegs.bit.CellVoltCAN=0;
        //----------UnitBMS Module state 초기화----------//
        s->HeartBeat             = 0;
        s->ModuleVoltage         = 0;

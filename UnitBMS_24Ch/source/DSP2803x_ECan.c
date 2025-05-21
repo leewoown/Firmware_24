@@ -232,7 +232,7 @@ struct ECAN_REGS ECanaShadow;
 	ECanaShadow.CANBTC.bit.TSEG1REG = 6;
     ECanaShadow.CANBTC.bit.SAM = 1;  //ByCHOO : SAM : Thripple Sampling. BRP > 4 일 경우만 가능하다고 하는데.. 그러면 BRPREG가 3보다 커야 하는 것 아닌가?
 	#endif
-	
+
 	#if(CAN_500KBPS)
     ECanaShadow.CANBTC.bit.BRPREG =  5;
     ECanaShadow.CANBTC.bit.TSEG2REG = 1;

@@ -294,10 +294,10 @@ void WG_InitECana(void)        // Initialize eCAN-A module
     ECanaMboxes.MBOX30.MSGID.all    = 0;
     ECanaMboxes.MBOX31.MSGID.all    = 0;
 
-
-    ECanaMboxes.MBOX0.MSGID.bit.STDMSGID  = 0x300;
-    ECanaMboxes.MBOX2.MSGID.bit.STDMSGID  = 0x301;
-    ECanaMboxes.MBOX1.MSGID.bit.STDMSGID  = 0x3C2;
+    #if(RackNum==1)
+    ECanaMboxes.MBOX0.MSGID.bit.STDMSGID  = 0x510;
+    ECanaMboxes.MBOX2.MSGID.bit.STDMSGID  = 0x512;
+    ECanaMboxes.MBOX1.MSGID.bit.STDMSGID  = 0x511;
 	ECanaMboxes.MBOX4.MSGID.bit.STDMSGID  = 0x004;
 	ECanaMboxes.MBOX5.MSGID.bit.STDMSGID  = 0x005;
 	ECanaMboxes.MBOX6.MSGID.bit.STDMSGID  = 0x006;
@@ -326,6 +326,106 @@ void WG_InitECana(void)        // Initialize eCAN-A module
 	ECanaMboxes.MBOX29.MSGID.bit.STDMSGID = 0x01D;
 	ECanaMboxes.MBOX30.MSGID.bit.STDMSGID = 0x01E;
 	ECanaMboxes.MBOX31.MSGID.bit.STDMSGID = 0x01F;
+    #endif
+    #if(RackNum==2)
+    ECanaMboxes.MBOX0.MSGID.bit.STDMSGID  = 0x520;
+    ECanaMboxes.MBOX2.MSGID.bit.STDMSGID  = 0x522;
+    ECanaMboxes.MBOX1.MSGID.bit.STDMSGID  = 0x521;
+    ECanaMboxes.MBOX4.MSGID.bit.STDMSGID  = 0x004;
+    ECanaMboxes.MBOX5.MSGID.bit.STDMSGID  = 0x005;
+    ECanaMboxes.MBOX6.MSGID.bit.STDMSGID  = 0x006;
+    ECanaMboxes.MBOX7.MSGID.bit.STDMSGID  = 0x007;
+    ECanaMboxes.MBOX8.MSGID.bit.STDMSGID  = 0x008;
+    ECanaMboxes.MBOX9.MSGID.bit.STDMSGID  = 0x009;
+    ECanaMboxes.MBOX10.MSGID.bit.STDMSGID = 0x00A;
+    ECanaMboxes.MBOX11.MSGID.bit.STDMSGID = 0x00B;
+    ECanaMboxes.MBOX12.MSGID.bit.STDMSGID = 0x00C;
+    ECanaMboxes.MBOX13.MSGID.bit.STDMSGID = 0x00D;
+    ECanaMboxes.MBOX14.MSGID.bit.STDMSGID = 0x00E;
+    ECanaMboxes.MBOX15.MSGID.bit.STDMSGID = 0x00F;
+    ECanaMboxes.MBOX16.MSGID.bit.STDMSGID = 0x010;
+    ECanaMboxes.MBOX17.MSGID.bit.STDMSGID = 0x011;
+    ECanaMboxes.MBOX18.MSGID.bit.STDMSGID = 0x012;
+    ECanaMboxes.MBOX19.MSGID.bit.STDMSGID = 0x013;
+    ECanaMboxes.MBOX20.MSGID.bit.STDMSGID = 0x014;
+    ECanaMboxes.MBOX21.MSGID.bit.STDMSGID = 0x015;
+    ECanaMboxes.MBOX22.MSGID.bit.STDMSGID = 0x016;
+    ECanaMboxes.MBOX23.MSGID.bit.STDMSGID = 0x017;
+    ECanaMboxes.MBOX24.MSGID.bit.STDMSGID = 0x018;
+    ECanaMboxes.MBOX25.MSGID.bit.STDMSGID = 0x019;
+    ECanaMboxes.MBOX26.MSGID.bit.STDMSGID = 0x01A;
+    ECanaMboxes.MBOX27.MSGID.bit.STDMSGID = 0x01B;
+    ECanaMboxes.MBOX28.MSGID.bit.STDMSGID = 0x01C;
+    ECanaMboxes.MBOX29.MSGID.bit.STDMSGID = 0x01D;
+    ECanaMboxes.MBOX30.MSGID.bit.STDMSGID = 0x01E;
+    ECanaMboxes.MBOX31.MSGID.bit.STDMSGID = 0x01F;
+    #endif
+    #if(RackNum==3)
+    ECanaMboxes.MBOX0.MSGID.bit.STDMSGID  = 0x530;
+    ECanaMboxes.MBOX2.MSGID.bit.STDMSGID  = 0x532;
+    ECanaMboxes.MBOX1.MSGID.bit.STDMSGID  = 0x531;
+    ECanaMboxes.MBOX4.MSGID.bit.STDMSGID  = 0x004;
+    ECanaMboxes.MBOX5.MSGID.bit.STDMSGID  = 0x005;
+    ECanaMboxes.MBOX6.MSGID.bit.STDMSGID  = 0x006;
+    ECanaMboxes.MBOX7.MSGID.bit.STDMSGID  = 0x007;
+    ECanaMboxes.MBOX8.MSGID.bit.STDMSGID  = 0x008;
+    ECanaMboxes.MBOX9.MSGID.bit.STDMSGID  = 0x009;
+    ECanaMboxes.MBOX10.MSGID.bit.STDMSGID = 0x00A;
+    ECanaMboxes.MBOX11.MSGID.bit.STDMSGID = 0x00B;
+    ECanaMboxes.MBOX12.MSGID.bit.STDMSGID = 0x00C;
+    ECanaMboxes.MBOX13.MSGID.bit.STDMSGID = 0x00D;
+    ECanaMboxes.MBOX14.MSGID.bit.STDMSGID = 0x00E;
+    ECanaMboxes.MBOX15.MSGID.bit.STDMSGID = 0x00F;
+    ECanaMboxes.MBOX16.MSGID.bit.STDMSGID = 0x010;
+    ECanaMboxes.MBOX17.MSGID.bit.STDMSGID = 0x011;
+    ECanaMboxes.MBOX18.MSGID.bit.STDMSGID = 0x012;
+    ECanaMboxes.MBOX19.MSGID.bit.STDMSGID = 0x013;
+    ECanaMboxes.MBOX20.MSGID.bit.STDMSGID = 0x014;
+    ECanaMboxes.MBOX21.MSGID.bit.STDMSGID = 0x015;
+    ECanaMboxes.MBOX22.MSGID.bit.STDMSGID = 0x016;
+    ECanaMboxes.MBOX23.MSGID.bit.STDMSGID = 0x017;
+    ECanaMboxes.MBOX24.MSGID.bit.STDMSGID = 0x018;
+    ECanaMboxes.MBOX25.MSGID.bit.STDMSGID = 0x019;
+    ECanaMboxes.MBOX26.MSGID.bit.STDMSGID = 0x01A;
+    ECanaMboxes.MBOX27.MSGID.bit.STDMSGID = 0x01B;
+    ECanaMboxes.MBOX28.MSGID.bit.STDMSGID = 0x01C;
+    ECanaMboxes.MBOX29.MSGID.bit.STDMSGID = 0x01D;
+    ECanaMboxes.MBOX30.MSGID.bit.STDMSGID = 0x01E;
+    ECanaMboxes.MBOX31.MSGID.bit.STDMSGID = 0x01F;
+    #endif
+    #if(RackNum==4)
+    ECanaMboxes.MBOX0.MSGID.bit.STDMSGID  = 0x540;
+    ECanaMboxes.MBOX2.MSGID.bit.STDMSGID  = 0x542;
+    ECanaMboxes.MBOX1.MSGID.bit.STDMSGID  = 0x541;
+    ECanaMboxes.MBOX4.MSGID.bit.STDMSGID  = 0x004;
+    ECanaMboxes.MBOX5.MSGID.bit.STDMSGID  = 0x005;
+    ECanaMboxes.MBOX6.MSGID.bit.STDMSGID  = 0x006;
+    ECanaMboxes.MBOX7.MSGID.bit.STDMSGID  = 0x007;
+    ECanaMboxes.MBOX8.MSGID.bit.STDMSGID  = 0x008;
+    ECanaMboxes.MBOX9.MSGID.bit.STDMSGID  = 0x009;
+    ECanaMboxes.MBOX10.MSGID.bit.STDMSGID = 0x00A;
+    ECanaMboxes.MBOX11.MSGID.bit.STDMSGID = 0x00B;
+    ECanaMboxes.MBOX12.MSGID.bit.STDMSGID = 0x00C;
+    ECanaMboxes.MBOX13.MSGID.bit.STDMSGID = 0x00D;
+    ECanaMboxes.MBOX14.MSGID.bit.STDMSGID = 0x00E;
+    ECanaMboxes.MBOX15.MSGID.bit.STDMSGID = 0x00F;
+    ECanaMboxes.MBOX16.MSGID.bit.STDMSGID = 0x010;
+    ECanaMboxes.MBOX17.MSGID.bit.STDMSGID = 0x011;
+    ECanaMboxes.MBOX18.MSGID.bit.STDMSGID = 0x012;
+    ECanaMboxes.MBOX19.MSGID.bit.STDMSGID = 0x013;
+    ECanaMboxes.MBOX20.MSGID.bit.STDMSGID = 0x014;
+    ECanaMboxes.MBOX21.MSGID.bit.STDMSGID = 0x015;
+    ECanaMboxes.MBOX22.MSGID.bit.STDMSGID = 0x016;
+    ECanaMboxes.MBOX23.MSGID.bit.STDMSGID = 0x017;
+    ECanaMboxes.MBOX24.MSGID.bit.STDMSGID = 0x018;
+    ECanaMboxes.MBOX25.MSGID.bit.STDMSGID = 0x019;
+    ECanaMboxes.MBOX26.MSGID.bit.STDMSGID = 0x01A;
+    ECanaMboxes.MBOX27.MSGID.bit.STDMSGID = 0x01B;
+    ECanaMboxes.MBOX28.MSGID.bit.STDMSGID = 0x01C;
+    ECanaMboxes.MBOX29.MSGID.bit.STDMSGID = 0x01D;
+    ECanaMboxes.MBOX30.MSGID.bit.STDMSGID = 0x01E;
+    ECanaMboxes.MBOX31.MSGID.bit.STDMSGID = 0x01F;
+    #endif
 
 
 /* Configure bit timing parameters for eCANA*/

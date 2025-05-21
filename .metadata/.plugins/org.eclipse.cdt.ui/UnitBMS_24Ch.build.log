@@ -3,10 +3,35 @@
 
 "C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
  
+Building file: "../source/DSP2803x_Sci.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_Sci.d_raw" --obj_directory="source"  "../source/DSP2803x_Sci.c"
+Finished building: "../source/DSP2803x_Sci.c"
+ 
+Building file: "../source/DSP2803x_Gpio.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_Gpio.d_raw" --obj_directory="source"  "../source/DSP2803x_Gpio.c"
+Finished building: "../source/DSP2803x_Gpio.c"
+ 
 Building file: "../main.c"
 Invoking: C2000 Compiler
 "C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
 Finished building: "../main.c"
+ 
+Building file: "../source/DSP2803x_ECan.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_ECan.d_raw" --obj_directory="source"  "../source/DSP2803x_ECan.c"
+Finished building: "../source/DSP2803x_ECan.c"
+ 
+Building file: "../source/DSP2803x_DeiveDriver.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP2803x_DeiveDriver.d_raw" --obj_directory="source"  "../source/DSP2803x_DeiveDriver.c"
+Finished building: "../source/DSP2803x_DeiveDriver.c"
+ 
+Building file: "../source/DSP28x_Project.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_24ChVER00/UnitBMS_24Ch" --include_path="D:/24_UnitBMS_24ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="source/DSP28x_Project.d_raw" --obj_directory="source"  "../source/DSP28x_Project.c"
+Finished building: "../source/DSP28x_Project.c"
  
 Building target: "UnitBMS_24Ch.out"
 Invoking: C2000 Linker
