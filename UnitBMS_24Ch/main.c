@@ -319,16 +319,16 @@ interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
                   CANTXRegs.BMASWVer         = C_SWVer;
                   CANTXRegs.UnitBMSIfro      = ComBine(CANTXRegs.BMASWVer,CANTXRegs.BMAVlotTempsQty);
                   #if RackNum==1
-                      CANTXRegs.UnitBMSID       = (0x100|SysRegs.BMSIDRegs.all);
+                      CANTXRegs.UnitBMSID       = (0x102|SysRegs.BMSIDRegs.all);
                   #endif
                  #if RackNum==2
-                      CANTXRegs.UnitBMSID       = (0x200|SysRegs.BMSIDRegs.all);
+                      CANTXRegs.UnitBMSID       = (0x202|SysRegs.BMSIDRegs.all);
                  #endif
                  #if RackNum==3
-                     CANTXRegs.UnitBMSID        = (0x300|SysRegs.BMSIDRegs.all);
+                     CANTXRegs.UnitBMSID        = (0x302|SysRegs.BMSIDRegs.all);
                  #endif
                  #if RackNum==4
-                     CANTXRegs.UnitBMSID        = (0x400|SysRegs.BMSIDRegs.all);
+                     CANTXRegs.UnitBMSID        = (0x402|SysRegs.BMSIDRegs.all);
                 #endif
                   CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.UnitBMSIfro,C_NorVoltage,C_Capacity,SysRegs.RackCellMinVoltage);
                   CANTXRegs.Timer1000msec=0;
@@ -336,42 +336,6 @@ interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
         break;
 
         case 9:
-                #if RackNum==1
-                    CANTXRegs.UnitBMSID       = (0x101|SysRegs.BMSIDRegs.all);
-                #endif
-                #if RackNum==2
-                    CANTXRegs.UnitBMSID       = (0x201|SysRegs.BMSIDRegs.all);
-                #endif
-                #if RackNum==3
-                   CANTXRegs.UnitBMSID        = (0x301|SysRegs.BMSIDRegs.all);
-                #endif
-                #if RackNum==4
-                   CANTXRegs.UnitBMSID        = (0x401|SysRegs.BMSIDRegs.all);
-                #endif
-                CANATX(CANTXRegs.UnitBMSID,8,SysRegs.CellMaxVoltage,SysRegs.CellMinVoltage,SysRegs.CellAvgVoltage,SysRegs.CellDivVoltage);
-        break;
-        case 18:
-                #if RackNum==1
-                    CANTXRegs.UnitBMSID       = (0x102|SysRegs.BMSIDRegs.all);
-                #endif
-                #if RackNum==2
-                    CANTXRegs.UnitBMSID       = (0x202|SysRegs.BMSIDRegs.all);
-                #endif
-                #if RackNum==3
-                   CANTXRegs.UnitBMSID        = (0x302|SysRegs.BMSIDRegs.all);
-                #endif
-                #if RackNum==4
-                   CANTXRegs.UnitBMSID        = (0x402|SysRegs.BMSIDRegs.all);
-                #endif
-                CANATX(CANTXRegs.UnitBMSID,8,SysRegs.CellMaxTemperature,SysRegs.CellMinTemperature,SysRegs.CellAvgTemperature,SysRegs.CellDivTemperature);
-        break;
-        case 23:
-                CANTXRegs.BalanceSate.all         = Slave1Regs.Balance.all;
-                CANTXRegs.BalanceSate.all         = CANTXRegs.BalanceSate.all<<C_CellBalacneShift;
-                CANTXRegs.BalanceSate.all         = CANTXRegs.BalanceSate.all | Slave2Regs.Balance.all;
-                CANTXRegs.CellVotlageMaxMinNum    = ComBine(SysRegs.CellMinVoltageNum,SysRegs.CellMaxVoltageNum);
-                CANTXRegs.CellTempsMaxMinNum      = ComBine(SysRegs.CellMinTemperatureNum,SysRegs.CellMaxTemperatureNum);
-
                 #if RackNum==1
                     CANTXRegs.UnitBMSID       = (0x103|SysRegs.BMSIDRegs.all);
                 #endif
@@ -383,6 +347,42 @@ interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
                 #endif
                 #if RackNum==4
                    CANTXRegs.UnitBMSID        = (0x403|SysRegs.BMSIDRegs.all);
+                #endif
+                CANATX(CANTXRegs.UnitBMSID,8,SysRegs.CellMaxVoltage,SysRegs.CellMinVoltage,SysRegs.CellAvgVoltage,SysRegs.CellDivVoltage);
+        break;
+        case 18:
+                #if RackNum==1
+                    CANTXRegs.UnitBMSID       = (0x104|SysRegs.BMSIDRegs.all);
+                #endif
+                #if RackNum==2
+                    CANTXRegs.UnitBMSID       = (0x204|SysRegs.BMSIDRegs.all);
+                #endif
+                #if RackNum==3
+                   CANTXRegs.UnitBMSID        = (0x304|SysRegs.BMSIDRegs.all);
+                #endif
+                #if RackNum==4
+                   CANTXRegs.UnitBMSID        = (0x404|SysRegs.BMSIDRegs.all);
+                #endif
+                CANATX(CANTXRegs.UnitBMSID,8,SysRegs.CellMaxTemperature,SysRegs.CellMinTemperature,SysRegs.CellAvgTemperature,SysRegs.CellDivTemperature);
+        break;
+        case 23:
+                CANTXRegs.BalanceSate.all         = Slave1Regs.Balance.all;
+                CANTXRegs.BalanceSate.all         = CANTXRegs.BalanceSate.all<<C_CellBalacneShift;
+                CANTXRegs.BalanceSate.all         = CANTXRegs.BalanceSate.all | Slave2Regs.Balance.all;
+                CANTXRegs.CellVotlageMaxMinNum    = ComBine(SysRegs.CellMinVoltageNum,SysRegs.CellMaxVoltageNum);
+                CANTXRegs.CellTempsMaxMinNum      = ComBine(SysRegs.CellMinTemperatureNum,SysRegs.CellMaxTemperatureNum);
+
+                #if RackNum==1
+                    CANTXRegs.UnitBMSID       = (0x105|SysRegs.BMSIDRegs.all);
+                #endif
+                #if RackNum==2
+                    CANTXRegs.UnitBMSID       = (0x205|SysRegs.BMSIDRegs.all);
+                #endif
+                #if RackNum==3
+                   CANTXRegs.UnitBMSID        = (0x305|SysRegs.BMSIDRegs.all);
+                #endif
+                #if RackNum==4
+                   CANTXRegs.UnitBMSID        = (0x405|SysRegs.BMSIDRegs.all);
                 #endif
 
                 CANATX(CANTXRegs.UnitBMSID,8,SysRegs.ModuleVoltage,CANTXRegs.CellVotlageMaxMinNum, CANTXRegs.CellTempsMaxMinNum,SysRegs.SystemStateARegs.all);
@@ -759,7 +759,7 @@ interrupt void ISR_CANRXINTA(void)
         }
         #endif
         #if(RackNum==2)
-        if(ECanaMboxes.MBOX1.MSGID.bit.STDMSGID==0x3C2)
+        if(ECanaMboxes.MBOX1.MSGID.bit.STDMSGID==0x512)
         {
            CANRXRegs.CurrentCount++;
            if(CANRXRegs.CurrentCount>3000){CANRXRegs.CurrentCount=0;}
@@ -768,7 +768,7 @@ interrupt void ISR_CANRXINTA(void)
         }
         #endif
         #if(RackNum==3)
-        if(ECanaMboxes.MBOX1.MSGID.bit.STDMSGID==0x3C3)
+        if(ECanaMboxes.MBOX1.MSGID.bit.STDMSGID==0x513)
         {
            CANRXRegs.CurrentCount++;
            if(CANRXRegs.CurrentCount>3000){CANRXRegs.CurrentCount=0;}
@@ -777,7 +777,7 @@ interrupt void ISR_CANRXINTA(void)
         }
         #endif
         #if(RackNum==4)
-        if(ECanaMboxes.MBOX1.MSGID.bit.STDMSGID==0x3C4)
+        if(ECanaMboxes.MBOX1.MSGID.bit.STDMSGID==0x514)
         {
            CANRXRegs.CurrentCount++;
            if(CANRXRegs.CurrentCount>3000){CANRXRegs.CurrentCount=0;}

@@ -167,7 +167,7 @@
  */
 //CPU 매크로선언 ------------------------------------------------------------------//
 #define	    CPUCLK            	     60000000L						    // CPU Main Clock
-#define     RackNum                  1
+#define     RackNum                  2
 //SCIA 매크로 선언 ----------------------------------------------------------------//
 #define		SCIA_LSPCLK			     (CPUCLK/2)							// Peripheral Low Speed Clock for SCI-B  //LOSPCP에서 설정
 #define		SCIA_BAUDRATE		     115200L							// SCI-A Baudrate

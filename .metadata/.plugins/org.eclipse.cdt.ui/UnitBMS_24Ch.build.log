@@ -3,6 +3,6 @@
 
 "C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
  
-gmake[1]: 'UnitBMS_24Ch.out' is up to date.
+gmake[1]: 'UnitBMS_24ChRack2.out' is up to date.
 
 **** Build Finished ****

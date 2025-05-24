@@ -624,7 +624,6 @@ void BalanceEnableHandle(SystemReg *P)
 //OUTPUT : Slave2Regs.BalaCellVolt=SystemReg.BalaCellMinVolt
 void BalanceMinVoltHandler(SystemReg *P)
 {
-
     if(P->SystemStateARegs.bit.CTCOMErrFault==0)
     {
         if(P->SystemStateARegs.bit.MBCOMErrFault==0)//
