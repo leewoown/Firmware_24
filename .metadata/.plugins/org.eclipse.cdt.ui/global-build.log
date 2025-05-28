@@ -40089,3 +40089,47 @@ Finished building target: "UnitBMS_14Ch.out"
  
 
 **** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_14Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_14ChVER00/UnitBMS_14Ch" --include_path="D:/24_UnitBMS_14ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "UnitBMS_14Ch.out"
+Invoking: C2000 Linker
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"UnitBMS_14Ch.map" --stack_size=0x300 --warn_sections -i"D:/24_UnitBMS_14ChVER00/C283x/DSP2803x_common/cmd" -i"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="UnitBMS_14Ch_linkInfo.xml" --rom_model -o "UnitBMS_14Ch.out" "./main.obj" "./source/DSP2803x_Adc.obj" "./source/DSP2803x_CSMPasswords.obj" "./source/DSP2803x_CodeStartBranch.obj" "./source/DSP2803x_CpuTimers.obj" "./source/DSP2803x_DefaultIsr.obj" "./source/DSP2803x_DeiveDriver.obj" "./source/DSP2803x_ECan.obj" "./source/DSP2803x_EQep.obj" "./source/DSP2803x_GlobalVariableDefs.obj" "./source/DSP2803x_Gpio.obj" "./source/DSP2803x_I2C.obj" "./source/DSP2803x_MemCopy.obj" "./source/DSP2803x_PieCtrl.obj" "./source/DSP2803x_PieVect.obj" "./source/DSP2803x_Sci.obj" "./source/DSP2803x_Spi.obj" "./source/DSP2803x_SysCtrl.obj" "./source/DSP2803x_usDelay.obj" "./source/DSP28x_Project.obj"  -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/rts2800_ml.lib" -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/libc.a" -l"D:/24_UnitBMS_14ChVER00/C283x/DSP2803x_common/cmd/DSP2803x_Headers_nonBIOS.cmd" -l"D:/24_UnitBMS_14ChVER00/C283x/DSP2803x_common/cmd/F28035.cmd" 
+<Linking>
+Finished building target: "UnitBMS_14Ch.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_14Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+Building file: "../main.c"
+Invoking: C2000 Compiler
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --include_path="D:/24_UnitBMS_14ChVER00/UnitBMS_14Ch" --include_path="D:/24_UnitBMS_14ChVER00/include" --include_path="C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "UnitBMS_14Ch.out"
+Invoking: C2000 Linker
+"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla0 --opt_for_speed=1 --advice:performance=all -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"UnitBMS_14Ch.map" --stack_size=0x300 --warn_sections -i"D:/24_UnitBMS_14ChVER00/C283x/DSP2803x_common/cmd" -i"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="UnitBMS_14Ch_linkInfo.xml" --rom_model -o "UnitBMS_14Ch.out" "./main.obj" "./source/DSP2803x_Adc.obj" "./source/DSP2803x_CSMPasswords.obj" "./source/DSP2803x_CodeStartBranch.obj" "./source/DSP2803x_CpuTimers.obj" "./source/DSP2803x_DefaultIsr.obj" "./source/DSP2803x_DeiveDriver.obj" "./source/DSP2803x_ECan.obj" "./source/DSP2803x_EQep.obj" "./source/DSP2803x_GlobalVariableDefs.obj" "./source/DSP2803x_Gpio.obj" "./source/DSP2803x_I2C.obj" "./source/DSP2803x_MemCopy.obj" "./source/DSP2803x_PieCtrl.obj" "./source/DSP2803x_PieVect.obj" "./source/DSP2803x_Sci.obj" "./source/DSP2803x_Spi.obj" "./source/DSP2803x_SysCtrl.obj" "./source/DSP2803x_usDelay.obj" "./source/DSP28x_Project.obj"  -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/rts2800_ml.lib" -l"C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/libc.a" -l"D:/24_UnitBMS_14ChVER00/C283x/DSP2803x_common/cmd/DSP2803x_Headers_nonBIOS.cmd" -l"D:/24_UnitBMS_14ChVER00/C283x/DSP2803x_common/cmd/F28035.cmd" 
+<Linking>
+Finished building target: "UnitBMS_14Ch.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project UnitBMS_14Ch ****
+
+"C:\\ti\\ccs1271\\ccs\\utils\\bin\\gmake" -k -j 22 all -O 
+ 
+gmake[1]: 'UnitBMS_14Ch.out' is up to date.
+
+**** Build Finished ****
