@@ -43,6 +43,7 @@ unsigned long CANindex=240;
 unsigned int cancnt=200;
 unsigned int slave1voltagoffset =0;
 unsigned int slave2voltagoffset =0;
+unsigned int test_sy =0;
 void main(void)
 {
 // Step 1. Initialize System Control
