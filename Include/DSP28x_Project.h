@@ -452,6 +452,7 @@ typedef struct System_Date
     Uint16       Number;
     Uint16       TempNumber;
     Uint16       BalanceStartCount;
+    Uint16       TemperatureRelayCount;
 
     Uint32       CellSumVoltageBuf;
     Uint32       CellSumVoltage;

@@ -11,7 +11,7 @@ extern ADCReg              ADCRegs;
 extern SlaveReg            Slave1Regs;
 extern SlaveReg            Slave2Regs;
 extern SlaveReg            Slave3Regs;
-
+extern void temperatureRelayHandler(SystemReg *sys);
 //************************************************************************************//
 //                                   User Code                                        //
 //************************************************************************************//
@@ -1221,7 +1221,23 @@ void CANATX(unsigned int ID, unsigned char Length, unsigned int Data0, unsigned 
 
 
 }//EOF
-
+void temperatureRelayHandler(SystemReg *sys)
+{
+    if(sys->CellMaxTemperature>350)
+    {
+       sys->TemperatureRelayCount++;
+       if(sys->TemperatureRelayCount>=100)
+       {
+           sys->DigitalOutPutReg.bit.FAN =1;
+           sys->TemperatureRelayCount>=1005;
+       }
+    }
+    else
+    {
+        sys->DigitalOutPutReg.bit.FAN =1;
+        sys->TemperatureRelayCount=0;
+    }
+}
 
 
 //----------------------------------------------------------------------------------�뜝�럥�맶�뜝�럥�쑅�뜝�럥�뵒�뜝�럥�맶�뜝�럥吏쀥뜝�럩援꿨뜝�럥�맶�뜝�럥竊놬PUT/OUTPUT 占쎈쐻占쎈윞占쎈뭼�뜝�럥�맶�뜝�럥�쑋�댖怨ㅼ삕 �뜝�럥�맶�뜝�럥�몘力놂옙�⑥궡�굲�뜝�럥臾�
