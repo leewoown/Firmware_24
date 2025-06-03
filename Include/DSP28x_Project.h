@@ -121,10 +121,10 @@
 #define 	ID_SW04       	    	 GpioDataRegs.AIODAT.bit.AIO12
 
 
-#define     C_CellVoltageNum            24
-#define     C_CellTemperatureNum        24
+#define     C_CellVoltageNum            13
+#define     C_CellTemperatureNum        13
 #define     C_SWVer                     1
-#define     C_NorVoltage                883
+#define     C_NorVoltage                478
 #define     C_Capacity                  1000
 
 #define     C_CellBalacneShift          11

@@ -177,10 +177,10 @@ void main(void)
 
 
 
-                memcpy(&CANTXRegs.BatteryVoltageCell[0],&SysRegs.CellVoltage[0],12);
-                memset(&CANTXRegs.BatteryVoltageCell[13], 0, 10);
+                memcpy(&CANTXRegs.BatteryVoltageCell[0],&SysRegs.CellVoltage[0],13);
+                memset(&CANTXRegs.BatteryVoltageCell[13], 0, 11);
 
-                memcpy(&CANTXRegs.BatteryTempCell[0],&SysRegs.CellTemperture[0],12);
+                memcpy(&CANTXRegs.BatteryTempCell[0],&SysRegs.CellTemperture[0],13);
                 memset(&CANTXRegs.BatteryTempCell[13], 0, 11);
 
                 SysRegs.SysMachine = STATE_RUNNING;
