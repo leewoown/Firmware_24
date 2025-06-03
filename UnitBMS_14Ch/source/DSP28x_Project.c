@@ -533,10 +533,10 @@ void CalTempHandler(SystemReg *s)
     int i = 0;
 
     int CellMaxTemp    = 0;
-    int CellMaxTempNum = 0;
+    unsigned int int CellMaxTempNum = 0;
 
     int CellMinTemp    = 0;
-    int CellMinTempNum = 0;
+    unsigned int int CellMinTempNum = 0;
 
     int CellAvgTemp    = 0;
 

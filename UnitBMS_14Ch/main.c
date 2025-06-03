@@ -150,20 +150,6 @@ void main(void)
             break;
             case STATE_RUNNING:
 
- //               memcpy(&SysRegs.CellVoltage[0], &Slave1Regs.CellVoltage[0],12);
- //               memcpy(&SysRegs.CellVoltage[12],&Slave2Regs.CellVoltage[0],12);
-                 memcpy(&SysRegs.CellVoltage[0], &Slave1Regs.CellVoltage[0],7);
-                 memcpy(&SysRegs.CellVoltage[8], &Slave2Regs.CellVoltage[0],7);
-                 SysRegs.CellVoltage[14]=0; //15
-                 SysRegs.CellVoltage[15]=0; //16
-                 SysRegs.CellVoltage[16]=0; //17
-                 SysRegs.CellVoltage[17]=0; //18
-                 SysRegs.CellVoltage[18]=0; //19
-                 SysRegs.CellVoltage[19]=0; //20
-                 SysRegs.CellVoltage[20]=0; //21
-                 SysRegs.CellVoltage[21]=0; //22
-                 SysRegs.CellVoltage[22]=0; //23
-                 SysRegs.CellVoltage[23]=0; //24
 
                 SysRegs.CellVoltDivCntVaule=12;
                 for(SysRegs.CellVoltDivCnt=0;SysRegs.CellVoltDivCnt < SysRegs.CellVoltDivCntVaule;SysRegs.CellVoltDivCnt++)
@@ -171,21 +157,31 @@ void main(void)
                     Slave1Regs.CellVoltage[SysRegs.CellVoltDivCnt] = Slave1Regs.CellVoltageBuf[SysRegs.CellVoltDivCnt]/10;
                     Slave2Regs.CellVoltage[SysRegs.CellVoltDivCnt] = Slave2Regs.CellVoltageBuf[SysRegs.CellVoltDivCnt]/10;
                 }
-                memcpy(&SysRegs.CellTemperture[0],&Slave1Regs.CellTemp[0],7);
-                memcpy(&SysRegs.CellTemperture[8],&Slave2Regs.CellTemp[0],7);
-                //memcpy(&SysRegs.CellTemperture[16],&Slave3Regs.CellTemp[0],8);
-                //SysRegs.CellTemperture[22] = 0; //22
-                //SysRegs.CellTemperture[23] = 0; //23
+              //  memcpy(&SysRegs.CellVoltage[0], &Slave1Regs.CellVoltage[0],12);
+              //  memcpy(&SysRegs.CellVoltage[12],&Slave2Regs.CellVoltage[0],12);
+                memcpy(&SysRegs.CellVoltage[0], &Slave1Regs.CellVoltage[0],7);
+                memcpy(&SysRegs.CellVoltage[7], &Slave2Regs.CellVoltage[0],6);
+
+
+                memcpy(&SysRegs.CellTemperture[0],&Slave1Regs.CellTemp[0],8);
+                memcpy(&SysRegs.CellTemperture[8],&Slave2Regs.CellTemp[0],5);
+              //  memcpy(&SysRegs.CellTemperture[16],&Slave3Regs.CellTemp[0],8);
+
 
                 ModuleCurrent(&SysRegs);
-                SysRegs.CellVoltageCount=14;
+                SysRegs.CellVoltageCount=13;
                 CalVoltageHandler(&SysRegs);
-                SysRegs.CellTempertureCount=14;
+
+                SysRegs.CellTempertureCount=13;
                 CalTempHandler(&SysRegs);
-                memcpy(&CANTXRegs.BatteryVoltageCell[0],&SysRegs.CellVoltage[0],14);
 
 
-                memcpy(&CANTXRegs.BatteryTempCell[0],&SysRegs.CellTemperture[0],14);
+
+                memcpy(&CANTXRegs.BatteryVoltageCell[0],&SysRegs.CellVoltage[0],12);
+                memset(&CANTXRegs.BatteryVoltageCell[13], 0, 10);
+
+                memcpy(&CANTXRegs.BatteryTempCell[0],&SysRegs.CellTemperture[0],12);
+                memset(&CANTXRegs.BatteryTempCell[13], 0, 11);
 
                 SysRegs.SysMachine = STATE_RUNNING;
                 if(CANRXRegs.PackStatus.bit.PackReset==1)
@@ -497,6 +493,7 @@ interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
                     CANTXRegs.CellNumStart=12;
                     CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.BatteryVoltageCell[CANTXRegs.CellNumStart],CANTXRegs.BatteryVoltageCell[CANTXRegs.CellNumStart+1],
                                                  CANTXRegs.BatteryVoltageCell[CANTXRegs.CellNumStart+2],CANTXRegs.BatteryVoltageCell[CANTXRegs.CellNumStart+3]);
+
                 }
         break;
         case 80:
@@ -555,7 +552,7 @@ interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
                     #if (RackNum==4)
                        CANTXRegs.UnitBMSID        = (0x40C|SysRegs.BMSIDRegs.all);
                     #endif
-                    CANTXRegs.CellNumStart=0;
+                    CANTXRegs.CellNumStart=0;//0,1,2,3
                     CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.BatteryTempCell[CANTXRegs.CellNumStart],CANTXRegs.BatteryTempCell[CANTXRegs.CellNumStart+1],
                                                  CANTXRegs.BatteryTempCell[CANTXRegs.CellNumStart+2],CANTXRegs.BatteryTempCell[CANTXRegs.CellNumStart+3]);
                 }
@@ -563,7 +560,7 @@ interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
         case 130:
                 if(SysRegs.SystemStateARegs.bit.CellTempCAN ==1)
                 {
-                    #if (RackNum==1)
+                    #if (RackNum==1)//0,1,2,3
                         CANTXRegs.UnitBMSID       = (0x10D|SysRegs.BMSIDRegs.all);
                     #endif
                     #if (RackNum==2)
@@ -617,7 +614,6 @@ interrupt void cpu_timer0_isr(void)   // 매 5ms마다 인터럽트 발생
                         CANTXRegs.UnitBMSID        = (0x40F|SysRegs.BMSIDRegs.all);
                     #endif
                     CANTXRegs.CellNumStart=12;//12,13,14,15
-                    CANTXRegs.UnitBMSID = (0x509|SysRegs.BMSIDRegs.all);
                     CANATX(CANTXRegs.UnitBMSID,8,CANTXRegs.BatteryTempCell[CANTXRegs.CellNumStart],CANTXRegs.BatteryTempCell[CANTXRegs.CellNumStart+1],
                                                  CANTXRegs.BatteryTempCell[CANTXRegs.CellNumStart+2],CANTXRegs.BatteryTempCell[CANTXRegs.CellNumStart+3]);
                   }
